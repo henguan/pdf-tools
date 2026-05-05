@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://你的域名.com/sitemap.xml
+Sitemap: https://www.tool-pdf.top/sitemap.xml
 
