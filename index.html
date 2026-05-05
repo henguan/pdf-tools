@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF工具盒 - 免费PDF转换、压缩、合并拆分在线工具</title>
-    <meta name="description" content="PDF工具盒提供免费在线PDF处理服务，支持PPT转PDF、图片转PDF、PDF转图片、PDF压缩、合并、拆分、旋转、加密解密，纯前端本地处理，安全不上传。">
-    <meta name="keywords" content="PDF工具,PDF转换,PPT转PDF,JPG转PDF,PDF压缩,PDF合并,PDF拆分,PDF加密,PDF解密">
+    <title>图片转PDF - 免费JPG PNG在线转PDF工具</title>
+    <meta name="description" content="免费在线图片转PDF工具，支持JPG、PNG多张图片一键生成PDF，纯浏览器本地处理，文件不上传更安全。">
+    <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,多张图片合成PDF">
     <link rel="canonical" href="https://www.tool-pdf.top">
     <link rel="stylesheet" href="/css/style.css">
-    <!-- AdSense 合规：标准异步代码 -->
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <!-- 引入PDF合成库 -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -17,17 +20,17 @@
     <div class="container">
         <div class="logo">
             <img src="https://via.placeholder.com/40" alt="PDF">
-            <span>PDF工具盒</span>
+            <span>图片转PDF工具</span>
         </div>
         <nav class="nav-menu">
-            <a href="index.html" class="active">PDF工具</a>
+            <a href="index.html" class="active">首页</a>
             <a href="help.html">帮助</a>
             <a href="about.html">关于我们</a>
         </nav>
     </div>
 </header>
 
-<!-- 广告位1：顶部横幅（合规：728x90，导航下、内容上，不贴按钮） -->
+<!-- 顶部广告 -->
 <div class="ad-container top-ad">
     <ins class="adsbygoogle"
          style="display:inline-block;width:728px;height:90px"
@@ -40,90 +43,40 @@
 
 <main class="container">
     <section class="tool-section">
-        <h1>PDF在线转换工具 - 免费 安全 无需上传</h1>
+        <h1>图片转PDF - 免费 安全 无需上传</h1>
         <div class="tool-tabs">
-            <button class="tab-btn active" data-tab="ppt2pdf">PPT转PDF</button>
-            <button class="tab-btn" data-tab="jpg2pdf">JPG转PDF</button>
+            <button class="tab-btn active" data-tab="jpg2pdf">JPG转PDF</button>
             <button class="tab-btn" data-tab="png2pdf">PNG转PDF</button>
-            <button class="tab-btn" data-tab="pdf2jpg">PDF转JPG</button>
-            <button class="tab-btn" data-tab="pdf2png">PDF转PNG</button>
-            <button class="tab-btn" data-tab="pdf2html">PDF转HTML</button>
-            <button class="tab-btn" data-tab="compress">PDF压缩</button>
-            <button class="tab-btn" data-tab="merge">PDF合并</button>
-            <button class="tab-btn" data-tab="split">PDF拆分</button>
-            <button class="tab-btn" data-tab="rotate">PDF旋转</button>
-            <button class="tab-btn" data-tab="addPageNum">添加页码</button>
-            <button class="tab-btn" data-tab="protect">PDF加密</button>
-            <button class="tab-btn" data-tab="unprotect">PDF解密</button>
         </div>
 
         <div class="tool-panels">
-            <div class="panel active" id="ppt2pdf">
-                <div class="upload-box">
-                    <label class="upload-btn" for="pptFile">选择PPT文件</label>
-                    <input type="file" id="pptFile" accept=".ppt,.pptx" hidden>
-                    <p>选择 .ppt / .pptx 文件</p>
-                </div>
-                <div class="action-box"></div>
-                <div class="result-box"></div>
-            </div>
-
-            <div class="panel" id="jpg2pdf">
+            <!-- JPG转PDF -->
+            <div class="panel active" id="jpg2pdf">
                 <div class="upload-box">
                     <label class="upload-btn" for="jpgFile">选择JPG图片</label>
                     <input type="file" id="jpgFile" accept=".jpg,.jpeg" multiple hidden>
-                    <p>可选择多张JPG图片</p>
+                    <p>可选择多张JPG图片合成PDF</p>
                     <div class="preview-box" id="jpgPreview"></div>
                 </div>
                 <div class="action-box"></div>
                 <div class="result-box"></div>
             </div>
 
+            <!-- PNG转PDF -->
             <div class="panel" id="png2pdf">
                 <div class="upload-box">
                     <label class="upload-btn" for="pngFile">选择PNG图片</label>
                     <input type="file" id="pngFile" accept=".png" multiple hidden>
-                    <p>可选择多张PNG图片</p>
+                    <p>可选择多张PNG图片合成PDF</p>
                     <div class="preview-box" id="pngPreview"></div>
                 </div>
                 <div class="action-box"></div>
                 <div class="result-box"></div>
             </div>
-
-            <div class="panel" id="pdf2jpg">
-                <div class="upload-box">
-                    <label class="upload-btn" for="pdf2JpgFile">选择PDF文件</label>
-                    <input type="file" id="pdf2JpgFile" accept=".pdf" hidden>
-                    <p>将PDF每页转为JPG</p>
-                    <div class="preview-box" id="pdf2JpgPreview"></div>
-                </div>
-                <div class="action-box"></div>
-                <div class="result-box"></div>
-            </div>
-
-            <div class="panel" id="pdf2png">
-                <div class="upload-box">
-                    <label class="upload-btn" for="pdf2PngFile">选择PDF文件</label>
-                    <input type="file" id="pdf2PngFile" accept=".pdf" hidden>
-                    <p>将PDF每页转为PNG</p>
-                    <div class="preview-box" id="pdf2PngPreview"></div>
-                </div>
-                <div class="action-box"></div>
-                <div class="result-box"></div>
-            </div>
-
-            <div class="panel" id="pdf2html"><div class="upload-box"><label class="upload-btn" for="pdf2HtmlFile">选择PDF文件</label><input type="file" id="pdf2HtmlFile" accept=".pdf" hidden><p>PDF转HTML网页</p></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="compress"><div class="upload-box"><label class="upload-btn" for="compressPdf">选择PDF文件</label><input type="file" id="compressPdf" accept=".pdf" hidden><p>无损压缩PDF大小</p></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="merge"><div class="upload-box"><label class="upload-btn" for="mergePdf">选择多个PDF</label><input type="file" id="mergePdf" accept=".pdf" multiple hidden><p>请选择2个及以上PDF文件</p></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="split"><div class="upload-box"><label class="upload-btn" for="splitPdf">选择PDF文件</label><input type="file" id="splitPdf" accept=".pdf" hidden><p>例如：1,3,5-8</p><input type="text" class="page-input" placeholder="输入拆分页码"></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="rotate"><div class="upload-box"><label class="upload-btn" for="rotatePdf">选择PDF文件</label><input type="file" id="rotatePdf" accept=".pdf" hidden><p>选择角度后旋转</p><select class="page-input"><option value="90">顺时针90°</option><option value="180">180°</option><option value="270">逆时针90°</option></select></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="addPageNum"><div class="upload-box"><label class="upload-btn" for="addPageNumPdf">选择PDF文件</label><input type="file" id="addPageNumPdf" accept=".pdf" hidden><p>一键批量添加页码</p></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="protect"><div class="upload-box"><label class="upload-btn" for="protectPdf">选择PDF文件</label><input type="file" id="protectPdf" accept=".pdf" hidden><p>设置密码保护</p><input type="password" class="page-input" placeholder="设置密码"></div><div class="action-box"></div><div class="result-box"></div></div>
-            <div class="panel" id="unprotect"><div class="upload-box"><label class="upload-btn" for="unprotectPdf">选择加密PDF</label><input type="file" id="unprotectPdf" accept=".pdf" hidden><p>输入密码解除保护</p><input type="password" class="page-input" placeholder="输入密码"></div><div class="action-box"></div><div class="result-box"></div></div>
         </div>
     </section>
 
-    <!-- 广告位2：工具区与介绍区中间（合规：336x280，内容间隔50px，不误触） -->
+    <!-- 中间广告 -->
     <div class="ad-container middle-ad">
         <ins class="adsbygoogle"
              style="display:inline-block;width:336px;height:280px"
@@ -136,23 +89,28 @@
 
     <section class="intro-section">
         <h2>工具介绍</h2>
-        <p>本工具完全在浏览器本地运行，文件不会上传到服务器，保护您的隐私安全。</p>
-        <p>支持PPT、图片与PDF互转，支持合并、拆分、压缩、加密、解密等功能。</p>
+        <p>本图片转PDF工具完全在浏览器本地运行，图片文件不会上传到服务器，严格保护您的隐私安全。</p>
+        <p>支持多张JPG、PNG图片一键合成PDF，操作简单，无需安装任何软件。</p>
     </section>
 
     <section class="faq-section">
         <h2>常见问题</h2>
-        <div class="faq-item"><h3>文件安全吗？</h3><p>安全，所有处理都在本地完成，不留档、不上传。</p></div>
-        <div class="faq-item"><h3>需要安装软件吗？</h3><p>不需要，打开网页即用。</p></div>
+        <div class="faq-item">
+            <h3>图片会泄露吗？</h3>
+            <p>安全，所有转换都在本地浏览器完成，不上传、不存档。</p>
+        </div>
+        <div class="faq-item">
+            <h3>支持多张图片合并吗？</h3>
+            <p>支持，可一次性选择多张JPG/PNG合成一个PDF文件。</p>
+        </div>
     </section>
 
     <section class="links-section">
         <h2>友情链接</h2>
         <div class="link-group">
-            <a href="#">PDF转换</a>
             <a href="#">图片转PDF</a>
-            <a href="#">PDF合并</a>
-            <a href="#">PDF压缩</a>
+            <a href="#">JPG转PDF</a>
+            <a href="#">PNG转PDF</a>
         </div>
     </section>
 </main>
@@ -164,137 +122,121 @@
             <a href="help.html">帮助</a>
             <a href="about.html">关于我们</a>
         </div>
-        <div class="copyright">© 2025 PDF工具盒 版权所有</div>
+        <div class="copyright">© 2025 图片转PDF工具 版权所有</div>
     </div>
 </footer>
 
-<!-- 大图弹窗（合规：无广告、无诱导） -->
+<!-- 大图预览弹窗 -->
 <div class="image-modal" id="imageModal">
     <div class="modal-content">
         <span class="modal-close" id="modalClose">×</span>
         <img src="" class="modal-img" id="modalImg">
-        <a href="" download="page.png" class="modal-download" id="modalDownloadBtn">下载当前图片</a>
+        <a href="" download="图片.png" class="modal-download" id="modalDownloadBtn">下载当前图片</a>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
 <script>
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+const { jsPDF } = window.jspdf;
+let selectedFiles = [];
 
-document.addEventListener('DOMContentLoaded', function () {
-    // 标签切换
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('.panel');
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            panels.forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(btn.dataset.tab).classList.add('active');
-        });
+// 标签切换
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.onclick = function(){
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+    }
+});
+
+// 大图弹窗
+const imageModal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
+modalClose.onclick = ()=>{
+    imageModal.classList.remove('show');
+    document.body.style.overflow = '';
+};
+imageModal.onclick = e=>{
+    if(e.target === imageModal){
+        imageModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+};
+
+// 图片预览
+function previewImages(files, previewId){
+    selectedFiles = Array.from(files);
+    const box = document.getElementById(previewId);
+    box.innerHTML = '';
+    selectedFiles.forEach((file,i)=>{
+        let url = URL.createObjectURL(file);
+        let wrap = document.createElement('div');
+        wrap.className = 'thumbnail-wrap';
+        wrap.innerHTML = `<img src="${url}" class="preview-img"><span class="page-number">${i+1}</span>`;
+        wrap.querySelector('img').onclick = ()=>{
+            modalImg.src = url;
+            imageModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+        box.appendChild(wrap);
+    });
+}
+
+// 生成并下载PDF
+function exportToPdf(resultBox){
+    if(selectedFiles.length === 0){
+        resultBox.innerHTML = '<p style="color:red">请先选择图片</p>';
+        return;
+    }
+    resultBox.innerHTML = '<p style="color:#2563eb">正在生成PDF，请稍候...</p>';
+
+    let pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
     });
 
-    // 弹窗
-    const imageModal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalClose = document.getElementById('modalClose');
-    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
-
-    function openImageModal(src) {
-        modalImg.src = src;
-        modalDownloadBtn.href = src;
-        imageModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-    modalClose.onclick = () => { imageModal.classList.remove('show'); document.body.style.overflow = ''; }
-    imageModal.onclick = (e) => { if(e.target === imageModal) { imageModal.classList.remove('show'); document.body.style.overflow = ''; } }
-
-    // 预览图
-    function previewImages(files, previewId) {
-        const box = document.getElementById(previewId);
-        box.innerHTML = '';
-        Array.from(files).forEach((file, i) => {
-            const url = URL.createObjectURL(file);
-            const wrap = document.createElement('div');
-            wrap.className = 'thumbnail-wrap';
-            wrap.innerHTML = `<img src="${url}" class="preview-img"><span class="page-number">${i+1}</span>`;
-            wrap.querySelector('img').onclick = () => openImageModal(url);
-            box.appendChild(wrap);
-        });
-    }
-
-    // PDF 转 图片
-    async function pdfToImages(file, previewId, resultBox, ext) {
-        const pdfData = await file.arrayBuffer();
-        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-        const previewBox = document.getElementById(previewId);
-        previewBox.innerHTML = '';
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const vp = page.getViewport({ scale: 0.5 });
-            const canvas = document.createElement('canvas');
-            canvas.width = vp.width; canvas.height = vp.height;
-            await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
-            const url = canvas.toDataURL(ext === 'jpg' ? 'image/jpeg' : 'image/png');
-
-            const wrap = document.createElement('div');
-            wrap.className = 'thumbnail-wrap';
-            wrap.innerHTML = `<img src="${url}" class="preview-img"><span class="page-number">第 ${i} 页</span>`;
-            wrap.querySelector('img').onclick = () => openImageModal(url);
-            previewBox.appendChild(wrap);
-        }
-        resultBox.innerHTML = `<p style="color:green">共 ${pdf.numPages} 页，点击缩略图查看/下载</p>`;
-    }
-
-    // 按钮与下载
-    function showConvertBtn(actionBox, text, cb) {
-        actionBox.innerHTML = `<button class="upload-btn convert-btn">${text}</button>`;
-        actionBox.querySelector('.convert-btn').addEventListener('click', cb);
-    }
-
-    function showDownload(resultBox, filename) {
-        resultBox.innerHTML = `<a href="#" download="${filename}" class="upload-btn">下载 ${filename}</a>`;
-    }
-
-    // 功能列表
-    const fns = [
-        { id: 'pptFile', panel: 'ppt2pdf', text: '开始转换PPT→PDF' },
-        { id: 'jpgFile', panel: 'jpg2pdf', text: '开始生成PDF', preview: 'jpgPreview', isImg: 1 },
-        { id: 'pngFile', panel: 'png2pdf', text: '开始生成PDF', preview: 'pngPreview', isImg: 1 },
-        { id: 'pdf2JpgFile', panel: 'pdf2jpg', text: '开始转换PDF→JPG', preview: 'pdf2JpgPreview', isPdf2Img: 1, ext: 'jpg' },
-        { id: 'pdf2PngFile', panel: 'pdf2png', text: '开始转换PDF→PNG', preview: 'pdf2PngPreview', isPdf2Img: 1, ext: 'png' },
-        { id: 'pdf2HtmlFile', panel: 'pdf2html', text: '开始转换PDF→HTML' },
-        { id: 'compressPdf', panel: 'compress', text: '开始压缩PDF' },
-        { id: 'mergePdf', panel: 'merge', text: '开始合并PDF' },
-        { id: 'splitPdf', panel: 'split', text: '开始拆分PDF' },
-        { id: 'rotatePdf', panel: 'rotate', text: '开始旋转PDF' },
-        { id: 'addPageNumPdf', panel: 'addPageNum', text: '开始添加页码' },
-        { id: 'protectPdf', panel: 'protect', text: '开始加密PDF' },
-        { id: 'unprotectPdf', panel: 'unprotect', text: '开始解密PDF' }
-    ];
-
-    fns.forEach(fn => {
-        const el = document.getElementById(fn.id);
-        if (!el) return;
-        el.addEventListener('change', e => {
-            const panel = document.getElementById(fn.panel);
-            const actionBox = panel.querySelector('.action-box');
-            const resultBox = panel.querySelector('.result-box');
-            resultBox.innerHTML = `<p style="color:green">已选择文件，可点击处理</p>`;
-
-            if (fn.isImg) previewImages(e.target.files, fn.preview);
-
-            showConvertBtn(actionBox, fn.text, async () => {
-                resultBox.innerHTML = `<p style="color:#2563eb">处理中...</p>`;
-                if (fn.isPdf2Img) {
-                    await pdfToImages(e.target.files[0], fn.preview, resultBox, fn.ext);
-                } else {
-                    setTimeout(() => showDownload(resultBox, '处理完成.pdf'), 800);
-                }
-            });
-        });
+    let loadImgArr = [];
+    selectedFiles.forEach(file=>{
+        loadImgArr.push(new Promise(resolve=>{
+            let img = new Image();
+            img.src = URL.createObjectURL(file);
+            img.onload = ()=>resolve(img);
+        }));
     });
+
+    Promise.all(loadImgArr).then(imgs=>{
+        imgs.forEach((img, idx)=>{
+            if(idx > 0) pdf.addPage();
+            let imgW = img.width;
+            let imgH = img.height;
+            let a4W = 210;
+            let a4H = 297;
+            let ratio = Math.min(a4W/imgW, a4H/imgH);
+            let w = imgW * ratio;
+            let h = imgH * ratio;
+            let x = (a4W - w) / 2;
+            let y = (a4H - h) / 2;
+            pdf.addImage(img, 'JPEG', x, y, w, h);
+        });
+        pdf.save('图片合成.pdf');
+        resultBox.innerHTML = '<p style="color:green">PDF已生成，自动开始下载！</p>';
+    });
+}
+
+// 绑定文件选择
+['jpgFile','pngFile'].forEach(id=>{
+    document.getElementById(id).onchange = function(e){
+        let panel = this.closest('.panel');
+        let actionBox = panel.querySelector('.action-box');
+        let resultBox = panel.querySelector('.result-box');
+        let previewId = panel.querySelector('.preview-box').id;
+
+        previewImages(e.target.files, previewId);
+        actionBox.innerHTML = '<button class="upload-btn">立即合成并下载PDF</button>';
+        actionBox.querySelector('button').onclick = ()=>exportToPdf(resultBox);
+    };
 });
 </script>
 
