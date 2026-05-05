@@ -298,4 +298,64 @@ body {
         gap: 14px; 
     }
 }
+/* ======================================= */
+/* 工具页面宽度调整为 1770px（补充样式） */
+/* ======================================= */
+.container {
+    max-width: 1770px !important;
+    width: 1770px !important;
+    margin: 0 auto !important;
+}
+.ad-container {
+    max-width: 1770px !important;
+}
+
+/* 工具面板宽度适配 */
+.tool-panels {
+    max-width: 100%;
+}
+
+/* 预览图布局优化 */
+.preview-img {
+    max-width: 120px;
+    max-height: 160px;
+    margin: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    object-fit: cover;
+    cursor: pointer;
+    position: relative;
+}
+.preview-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: center;
+}
+.thumbnail-wrap {
+    position: relative;
+    display: inline-block;
+}
+.page-number {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+.img-view-btn {
+    display: inline-block;
+    margin: 0 6px;
+    padding: 4px 10px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+}
 
