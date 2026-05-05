@@ -358,4 +358,13 @@ body {
     cursor: pointer;
     text-decoration: none;
 }
+/* 介绍/FAQ/友情链接 固定1200px宽度居中 */
+.intro-section,
+.faq-section,
+.links-section {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 
