@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF工具盒 - 免费PDF转换、压缩、合并拆分在线工具</title>
+    <meta name="description" content="PDF工具盒提供免费在线PDF处理服务，支持PPT转PDF、图片转PDF、PDF转图片、PDF压缩、合并、拆分、旋转、加密解密，纯前端本地处理，安全不上传。">
+    <meta name="keywords" content="PDF工具,PDF转换,PPT转PDF,JPG转PDF,PDF压缩,PDF合并,PDF拆分,PDF加密,PDF解密">
+    <meta name="author" content="PDF工具盒">
+    <link rel="canonical" href="https://tool-pdf.top/index.html">
+    <link rel="stylesheet" href="/pdf-tools/css/style.css">
+    <!-- Google Adsense 广告脚本 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<header class="navbar">
+    <div class="container">
+        <div class="logo">
+            <img src="https://via.placeholder.com/40" alt="LOGO">
+            <span>PDF工具盒</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="index.html" class="active">PDF工具</a>
+            <a href="help.html">帮助</a>
+            <a href="about.html">关于我们</a>
+        </nav>
+    </div>
+</header>
+
+<!-- 顶部 Adsense 广告位 -->
+<div class="ad-container top-ad">
+    <ins class="adsbygoogle"
+         style="display:block;"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<!-- 主工具区 -->
+<main class="container">
+    <section class="tool-section">
+        <h1>PDF在线转换工具 - 免费 安全 无需上传</h1>
+
+        <div class="tool-tabs">
+            <button class="tab-btn active" data-tab="ppt2pdf">PPT转PDF</button>
+            <button class="tab-btn" data-tab="jpg2pdf">JPG转PDF</button>
+            <button class="tab-btn" data-tab="png2pdf">PNG转PDF</button>
+            <button class="tab-btn" data-tab="pdf2jpg">PDF转JPG</button>
+            <button class="tab-btn" data-tab="pdf2png">PDF转PNG</button>
+            <button class="tab-btn" data-tab="pdf2html">PDF转HTML</button>
+            <button class="tab-btn" data-tab="compress">PDF压缩</button>
+            <button class="tab-btn" data-tab="merge">PDF合并</button>
+            <button class="tab-btn" data-tab="split">PDF拆分</button>
+            <button class="tab-btn" data-tab="rotate">PDF旋转</button>
+            <button class="tab-btn" data-tab="addPageNum">添加页码</button>
+            <button class="tab-btn" data-tab="protect">PDF加密</button>
+            <button class="tab-btn" data-tab="unprotect">PDF解密</button>
+        </div>
+
+        <div class="tool-panels">
+
+            <!-- PPT转PDF -->
+            <div class="panel active" id="ppt2pdf">
+                <div class="upload-box">
+                    <label class="upload-btn" for="pptFile">选择PPT文件</label>
+                    <input type="file" id="pptFile" accept=".ppt,.pptx" hidden>
+                    <p>选择 .ppt / .pptx 文件</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- JPG转PDF -->
+            <div class="panel" id="jpg2pdf">
+                <div class="upload-box">
+                    <label class="upload-btn" for="jpgFile">选择JPG图片</label>
+                    <input type="file" id="jpgFile" accept=".jpg,.jpeg" multiple hidden>
+                    <p>可选择多张JPG图片</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PNG转PDF -->
+            <div class="panel" id="png2pdf">
+                <div class="upload-box">
+                    <label class="upload-btn" for="pngFile">选择PNG图片</label>
+                    <input type="file" id="pngFile" accept=".png" multiple hidden>
+                    <p>可选择多张PNG图片</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF转JPG -->
+            <div class="panel" id="pdf2jpg">
+                <div class="upload-box">
+                    <label class="upload-btn" for="pdf2JpgFile">选择PDF文件</label>
+                    <input type="file" id="pdf2JpgFile" accept=".pdf" hidden>
+                    <p>将PDF每页转为JPG</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF转PNG -->
+            <div class="panel" id="pdf2png">
+                <div class="upload-box">
+                    <label class="upload-btn" for="pdf2PngFile">选择PDF文件</label>
+                    <input type="file" id="pdf2PngFile" accept=".pdf" hidden>
+                    <p>将PDF每页转为PNG</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF转HTML -->
+            <div class="panel" id="pdf2html">
+                <div class="upload-box">
+                    <label class="upload-btn" for="pdf2HtmlFile">选择PDF文件</label>
+                    <input type="file" id="pdf2HtmlFile" accept=".pdf" hidden>
+                    <p>PDF转HTML网页</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF压缩 -->
+            <div class="panel" id="compress">
+                <div class="upload-box">
+                    <label class="upload-btn" for="compressPdf">选择PDF文件</label>
+                    <input type="file" id="compressPdf" accept=".pdf" hidden>
+                    <p>无损压缩PDF大小</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF合并 -->
+            <div class="panel" id="merge">
+                <div class="upload-box">
+                    <label class="upload-btn" for="mergePdf">选择多个PDF</label>
+                    <input type="file" id="mergePdf" accept=".pdf" multiple hidden>
+                    <p>请选择2个及以上PDF文件</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF拆分 -->
+            <div class="panel" id="split">
+                <div class="upload-box">
+                    <label class="upload-btn" for="splitPdf">选择PDF文件</label>
+                    <input type="file" id="splitPdf" accept=".pdf" hidden>
+                    <p>例如：1,3,5-8</p>
+                    <input type="text" class="page-input" placeholder="输入拆分页码">
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF旋转 -->
+            <div class="panel" id="rotate">
+                <div class="upload-box">
+                    <label class="upload-btn" for="rotatePdf">选择PDF文件</label>
+                    <input type="file" id="rotatePdf" accept=".pdf" hidden>
+                    <p>选择角度后旋转</p>
+                    <select class="page-input">
+                        <option value="90">顺时针90°</option>
+                        <option value="180">180°</option>
+                        <option value="270">逆时针90°</option>
+                    </select>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- 添加页码 -->
+            <div class="panel" id="addPageNum">
+                <div class="upload-box">
+                    <label class="upload-btn" for="addPageNumPdf">选择PDF文件</label>
+                    <input type="file" id="addPageNumPdf" accept=".pdf" hidden>
+                    <p>一键批量添加页码</p>
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF加密 -->
+            <div class="panel" id="protect">
+                <div class="upload-box">
+                    <label class="upload-btn" for="protectPdf">选择PDF文件</label>
+                    <input type="file" id="protectPdf" accept=".pdf" hidden>
+                    <p>设置密码保护</p>
+                    <input type="password" class="page-input" placeholder="设置密码">
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+            <!-- PDF解密 -->
+            <div class="panel" id="unprotect">
+                <div class="upload-box">
+                    <label class="upload-btn" for="unprotectPdf">选择加密PDF</label>
+                    <input type="file" id="unprotectPdf" accept=".pdf" hidden>
+                    <p>输入密码解除保护</p>
+                    <input type="password" class="page-input" placeholder="输入密码">
+                </div>
+                <div class="action-box"></div>
+                <div class="result-box"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 介绍 -->
+    <section class="intro-section">
+        <h2>工具介绍</h2>
+        <p>本工具完全在浏览器本地运行，文件不会上传到服务器，保护您的隐私安全。</p>
+        <p>支持PPT、图片与PDF互转，支持合并、拆分、压缩、加密、解密等功能。</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <h2>常见问题</h2>
+        <div class="faq-item">
+            <h3>文件安全吗？</h3>
+            <p>安全，所有处理都在本地完成，不留档、不上传。</p>
+        </div>
+        <div class="faq-item">
+            <h3>需要安装软件吗？</h3>
+            <p>不需要，打开网页即用。</p>
+        </div>
+    </section>
+
+    <!-- 友情链接 -->
+    <section class="links-section">
+        <h2>友情链接</h2>
+        <div class="link-group">
+            <a href="#">PDF转换</a>
+            <a href="#">图片转PDF</a>
+            <a href="#">PDF合并</a>
+            <a href="#">PDF压缩</a>
+        </div>
+    </section>
+</main>
+
+<!-- 页脚 -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="index.html">首页</a>
+            <a href="help.html">帮助</a>
+            <a href="about.html">关于我们</a>
+        </div>
+        <div class="copyright">© 2025 PDF工具盒 版权所有</div>
+    </div>
+</footer>
+
+<script src="js/pdf-utils.js"></script>
+</body>
+</html>
+
