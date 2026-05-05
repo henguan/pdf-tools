@@ -13,7 +13,8 @@ body {
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1770px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -71,12 +72,11 @@ body {
 /* 广告容器 */
 .ad-container {
     margin: 22px auto;
-    max-width: 1100px;
+    max-width: 1770px;
     text-align: center;
 }
 
 .top-ad { margin-top: 20px; }
-.middle-ad { margin: 40px 0; }
 
 /* 工具区域 */
 .tool-section {
@@ -90,7 +90,6 @@ body {
     color: #1e293b;
 }
 
-/* 功能切换栏 */
 .tool-tabs {
     display: flex;
     flex-wrap: wrap;
@@ -118,7 +117,6 @@ body {
     color: #fff;
 }
 
-/* 功能面板 */
 .tool-panels {
     background: #fff;
     padding: 38px 24px;
@@ -134,7 +132,6 @@ body {
     display: block;
 }
 
-/* 上传框 */
 .upload-box {
     border: 2px dashed #cbd5e1;
     padding: 46px 20px;
@@ -184,11 +181,109 @@ body {
     font-size: 15px;
 }
 
-/* 介绍、FAQ、链接区域 */
+/* 图片预览 */
+.preview-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: center;
+}
+
+.thumbnail-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.preview-img {
+    max-width: 120px;
+    max-height: 160px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.img-view-btn {
+    display: inline-block;
+    margin: 0 6px;
+    padding: 4px 10px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+/* 大图弹窗 */
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.image-modal.show {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.modal-img {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 8px;
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.modal-download {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px 24px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+/* 介绍、FAQ、友情链接 固定 1200px */
 .intro-section, 
 .faq-section, 
 .links-section {
-    margin: 46px 0;
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 46px auto !important;
     background: #fff;
     padding: 32px;
     border-radius: 14px;
@@ -218,7 +313,6 @@ body {
 .faq-item h3 {
     font-size: 16px;
     color: #2563eb;
-    margin-bottom: 6px;
 }
 
 .faq-item p {
@@ -230,16 +324,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
 }
 
 .link-group a {
     color: #2563eb;
     text-decoration: none;
-    font-size: 15px;
-}
-
-.link-group a:hover {
-    text-decoration: underline;
 }
 
 /* 页脚 */
@@ -270,101 +360,9 @@ body {
     font-size: 14px;
 }
 
-/* 移动端适配 */
+/* 移动端 */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 12px;
-    }
-    .nav-menu { 
-        gap: 14px; 
-    }
-    .nav-menu a {
-        font-size: 15px;
-    }
-    .tool-section h1 { 
-        font-size: 24px; 
-    }
-    .tab-btn { 
-        padding: 9px 14px; 
-        font-size: 14px; 
-    }
-    .tool-panels {
-        padding: 28px 16px;
-    }
-    .upload-box {
-        padding: 36px 14px;
-    }
-    .footer-links { 
-        gap: 14px; 
-    }
+    .container { padding: 0 12px; }
+    .tool-section h1 { font-size: 24px; }
+    .tool-panels { padding: 28px 16px; }
 }
-/* ======================================= */
-/* 工具页面宽度调整为 1770px（补充样式） */
-/* ======================================= */
-.container {
-    max-width: 1770px !important;
-    width: 1770px !important;
-    margin: 0 auto !important;
-}
-.ad-container {
-    max-width: 1770px !important;
-}
-
-/* 工具面板宽度适配 */
-.tool-panels {
-    max-width: 100%;
-}
-
-/* 预览图布局优化 */
-.preview-img {
-    max-width: 120px;
-    max-height: 160px;
-    margin: 8px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
-    object-fit: cover;
-    cursor: pointer;
-    position: relative;
-}
-.preview-box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 12px;
-    justify-content: center;
-}
-.thumbnail-wrap {
-    position: relative;
-    display: inline-block;
-}
-.page-number {
-    position: absolute;
-    bottom: 4px;
-    left: 4px;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 4px;
-}
-.img-view-btn {
-    display: inline-block;
-    margin: 0 6px;
-    padding: 4px 10px;
-    background: #2563eb;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    text-decoration: none;
-}
-/* 介绍/FAQ/友情链接 固定1200px宽度居中 */
-.intro-section,
-.faq-section,
-.links-section {
-    max-width: 1200px !important;
-    width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
