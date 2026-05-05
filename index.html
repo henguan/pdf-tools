@@ -10,16 +10,18 @@
     <link rel="canonical" href="https://www.tool-pdf.top">
     <link rel="stylesheet" href="/css/style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <!-- 引入 pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     <style>
-        /* 图片预览样式 */
         .preview-img {
             max-width: 120px;
-            max-height: 120px;
+            max-height: 160px;
             margin: 8px;
             border-radius: 6px;
             border: 1px solid #ddd;
             object-fit: cover;
             cursor: pointer;
+            position: relative;
         }
         .preview-box {
             display: flex;
@@ -38,6 +40,20 @@
             font-size: 12px;
             cursor: pointer;
             text-decoration: none;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .thumbnail-wrap {
+            position: relative;
+            display: inline-block;
         }
     </style>
 </head>
@@ -238,6 +254,9 @@
 
 <script src="js/pdf-utils.js"></script>
 <script>
+// pdf.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.panel');
@@ -267,19 +286,50 @@ document.addEventListener('DOMContentLoaded', function () {
         box.innerHTML = '';
         Array.from(files).forEach((file, i) => {
             const url = URL.createObjectURL(file);
-            const img = document.createElement('img');
-            img.className = 'preview-img';
-            img.src = url;
-            img.onclick = () => window.open(url);
-            box.appendChild(img);
+            const wrap = document.createElement('div');
+            wrap.className = 'thumbnail-wrap';
+            wrap.innerHTML = `
+                <img src="${url}" class="preview-img">
+                <span class="page-number">${i+1}</span>
+            `;
+            wrap.querySelector('img').onclick = () => window.open(url);
+            box.appendChild(wrap);
         });
     }
 
-    function mockImageResult(previewId, resultBox, ext) {
-        const url = 'https://via.placeholder.com/600x800?text=Page+1';
-        const box = document.getElementById(previewId);
-        box.innerHTML = `<img src="${url}" class="preview-img">`;
-        showDownload(resultBox, `转换完成.${ext}`, url);
+    // ========== PDF 转图片（真实渲染，带缩略图+页码） ==========
+    async function pdfToImages(file, previewId, resultBox, ext) {
+        const pdfData = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        const total = pdf.numPages;
+        const previewBox = document.getElementById(previewId);
+        previewBox.innerHTML = '';
+
+        const imageUrls = [];
+
+        for (let i = 1; i <= total; i++) {
+            const page = await pdf.getPage(i);
+            const viewport = page.getViewport({ scale: 0.5 }); // 缩略图比例
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+
+            const imgUrl = canvas.toDataURL(ext === 'jpg' ? 'image/jpeg' : 'image/png');
+            imageUrls.push(imgUrl);
+
+            const wrap = document.createElement('div');
+            wrap.className = 'thumbnail-wrap';
+            wrap.innerHTML = `
+                <img src="${imgUrl}" class="preview-img">
+                <span class="page-number">第 ${i} 页</span>
+            `;
+            wrap.querySelector('img').onclick = () => window.open(imgUrl);
+            previewBox.appendChild(wrap);
+        }
+
+        // 打包下载链接（这里示例给最后一页，你也可以做打包zip）
+        resultBox.innerHTML = `<p style="color:green">共 ${total} 页，点击缩略图查看/下载</p>`;
     }
 
     const functions = [
@@ -309,12 +359,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (fn.isImg) previewImages(e.target.files, fn.preview);
 
-            showConvertBtn(actionBox, fn.text, () => {
+            showConvertBtn(actionBox, fn.text, async () => {
                 resultBox.innerHTML = `<p style="color:#2563eb">处理中...</p>`;
-                setTimeout(() => {
-                    if (fn.isPdf2Img) mockImageResult(fn.preview, resultBox, fn.ext);
-                    else showDownload(resultBox, '处理完成.pdf', '#');
-                }, 800);
+                if (fn.isPdf2Img) {
+                    await pdfToImages(e.target.files[0], fn.preview, resultBox, fn.ext);
+                } else {
+                    setTimeout(() => {
+                        showDownload(resultBox, '处理完成.pdf', '#');
+                    }, 800);
+                }
             });
         });
     });
