@@ -292,7 +292,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <img src="${url}" class="preview-img">
                 <span class="page-number">${i+1}</span>
             `;
-            wrap.querySelector('img').onclick = () => window.open(url);
+wrap.querySelector('img').onclick = () => {
+    openImageModal(imgUrl);
+};
             box.appendChild(wrap);
         });
     }
@@ -324,7 +326,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <img src="${imgUrl}" class="preview-img">
                 <span class="page-number">第 ${i} 页</span>
             `;
-            wrap.querySelector('img').onclick = () => window.open(imgUrl);
+wrap.querySelector('img').onclick = () => {
+    openImageModal(imgUrl);
+};
             previewBox.appendChild(wrap);
         }
 
@@ -372,6 +376,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+    // 大图弹窗逻辑
+const imageModal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImg');
+const modalClose = document.getElementById('modalClose');
+const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+
+function openImageModal(imgSrc) {
+    modalImg.src = imgSrc;
+    modalDownloadBtn.href = imgSrc;
+    imageModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+// 关闭弹窗
+modalClose.addEventListener('click', () => {
+    imageModal.classList.remove('show');
+    document.body.style.overflow = '';
+});
+// 点击遮罩关闭
+imageModal.addEventListener('click', (e) => {
+    if(e.target === imageModal){
+        imageModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+});
+
 </script>
     <!-- 大图弹窗 -->
 <div class="image-modal" id="imageModal">
