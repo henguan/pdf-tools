@@ -1,3 +1,4 @@
+
 <header class="navbar">
     <div class="container">
         <div class="logo">
@@ -16,7 +17,7 @@
                     <a href="merge.html">MERGE</a>
                     <a href="unlock.html">UNLOCK</a>
                     <a href="encrpy.html">ENCRYPT</a>
-                    <a href="addpagenumbers.html">ADDPAGENUMBER</a>
+                    <a href="addpagenumber.html">ADDPAGENUMBER</a>
                     <a href="addwatermark.html">ADDWATERMARK</a>
                     <a href="crop.html">CROP</a>
                     <a href="rotate.html">ROTATE</a>
@@ -24,7 +25,21 @@
             </div>
             <a href="help.html">Help</a>
             <a href="about.html">About</a>
+
+            <!-- 多语言开关 放在导航里，整齐不乱 -->
+            <div id="gtranslate"></div>
         </nav>
     </div>
 </header>
 
+<!-- 多语言 JS 放在底部更规范 -->
+<script src="https://cdn.gtranslate.net/widgets/latest/gt.js"></script>
+<script>
+new GTranslate({
+    sourceLanguage: "en",
+    targetLanguages: ["zh-CN","zh-TW","es","fr","de","ja","ko","ru","pt","it"],
+    container: "#gtranslate",
+    flag: true,
+    dropdown: true
+});
+</script>
