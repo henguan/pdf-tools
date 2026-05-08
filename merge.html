@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF合并 - 在线工具</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <!-- 自动加载页头 -->
+    <div id="header-placeholder"></div>
+
+    <div class="page-container">
+        <div class="converter">
+            <div class="header">
+                <h1> PDF合并工具</h1>
+                <p>上传多个PDF文件，一键合并成一个文档</p>
+            </div>
+
+            <!-- 上传区域 -->
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📄</div>
+                <div>点击上传 PDF 文件</div>
+                <div class="upload-hint">可选择多个文件</div>
+            </div>
+            <input type="file" id="fileInput" accept=".pdf" multiple>
+
+            <!-- 文件列表 -->
+            <div id="fileList" class="file-list"></div>
+
+            <!-- 操作按钮 -->
+            <div class="button-group">
+                <button class="btn btn-primary" id="mergeBtn" disabled>开始合并</button>
+                <button class="btn btn-secondary" onclick="clearFiles()">清空文件</button>
+            </div>
+
+            <!-- 加载中 -->
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                正在合并PDF，请稍候...
+            </div>
+
+            <!-- 结果 -->
+            <div class="result-group" id="resultBox">
+                <div class="result-title">合并完成</div>
+                <div class="result-content">
+                    <a id="downloadLink" class="btn btn-success">下载合并后的PDF</a>
+                </div>
+            </div>
+
+            <div class="tip-text">
+                本工具使用浏览器端处理，文件不上传到服务器，安全快速
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 自动加载页脚 -->
+    <div id="footer-placeholder"></div>
+
+    <!-- 使用稳定的官方CDN -->
+    <script src="/tools/pdf-lib.min.js"></script>
+    <script src="/include.js"></script>
+
+    <script>
+        // 加载页头页脚
+        fetch("/header.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("header-placeholder").innerHTML = data);
+        
+        fetch("/footer.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("footer-placeholder").innerHTML = data);
+
+        // 原有功能JS
+        let files = [];
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const mergeBtn = document.getElementById('mergeBtn');
+        const loading = document.getElementById('loading');
+        const resultBox = document.getElementById('resultBox');
+        const downloadLink = document.getElementById('downloadLink');
+
+        // 选择文件
+        fileInput.onchange = (e) => {
+            files = Array.from(e.target.files);
+            renderFileList();
+            mergeBtn.disabled = files.length < 2;
+        };
+
+        // 渲染文件列表
+        function renderFileList() {
+            fileList.innerHTML = '';
+            files.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `
+                    <span>${index + 1}. ${file.name}</span>
+                    <button class="btn btn-danger btn-sm" onclick="removeFile(${index})">删除</button>
+                `;
+                fileList.appendChild(item);
+            });
+        }
+
+        // 删除单个文件
+        function removeFile(index) {
+            files.splice(index, 1);
+            renderFileList();
+            mergeBtn.disabled = files.length < 2;
+        }
+
+        // 清空所有
+        function clearFiles() {
+            files = [];
+            fileList.innerHTML = '';
+            mergeBtn.disabled = true;
+            resultBox.style.display = 'none';
+        }
+
+        // 合并PDF
+        mergeBtn.onclick = async () => {
+            if (files.length < 2) return;
+
+            mergeBtn.disabled = true;
+            loading.style.display = 'flex';
+            resultBox.style.display = 'none';
+
+            try {
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                
+                for (const file of files) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const pages = await pdfDoc.copyPages(pdf, pdf.getPageIndices());
+                    pages.forEach(page => pdfDoc.addPage(page));
+                }
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                downloadLink.href = url;
+                downloadLink.download = '合并后的PDF.pdf';
+                resultBox.style.display = 'block';
+            } catch (err) {
+                alert('合并失败：' + err.message);
+            } finally {
+                loading.style.display = 'none';
+                mergeBtn.disabled = false;
+            }
+        };
+    </script>
+
+</body>
+</html>
+

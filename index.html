@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>免费PDF在线工具合集 - 图片转PDF JPG PNG合成PDF</title>
-    <meta name="description" content="免费在线PDF工具合集，支持JPG转PDF、PNG转PDF、多张图片合成PDF，纯浏览器本地处理，文件不上传更安全。">
-    <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,多张图片合成PDF,免费PDF工具">
-    <link rel="canonical" href="https://www.tool-pdf.top/index.html">
-    <link rel="stylesheet" href="/css/style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
-    <style>
-        .container {width: 1200px; margin: 0 auto;}
-        @media (max-width: 1200px) {.container {width: 95%;}}
-        .tool-card{border:1px solid #eee; padding:25px; border-radius:8px; margin-bottom:20px; text-align:center;}
-        .tool-card a{display:inline-block; margin-top:15px; padding:10px 20px; background:#2563eb; color:#fff; text-decoration:none; border-radius:6px;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片转PDF - 免费JPG PNG在线转PDF工具</title>
+  <meta name="description" content="免费在线图片转PDF工具，支持JPG、PNG多张图片一键生成PDF，纯浏览器本地处理，文件不上传更安全。">
+  <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,多张图片合成PDF">
+  <link rel="canonical" href="https://www.tool-pdf.top/index.html">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
+
 <body>
 
-<header class="navbar">
-    <div class="container">
-        <div class="logo">
-            <img src="https://via.placeholder.com/40" alt="PDF">
-            <span>PDF工具合集</span>
-        </div>
-        <nav class="nav-menu">
-            <a href="index.html" class="active">首页</a>
-            <a href="help.html">帮助</a>
-            <a href="about.html">关于我们</a>
-        </nav>
-    </div>
-</header>
+  <!-- 自动加载页头 -->
+  <div id="header-placeholder"></div>
 
-<div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
+  <!-- 顶部广告 -->
+  <div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-2923288635448337"
@@ -40,64 +29,197 @@
          data-ad-format="auto"
          data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
+  </div>
 
-<main class="container">
-    <h1>免费在线PDF转换工具</h1>
-    <p>所有工具均在浏览器本地运行，文件不上传服务器，保护隐私安全，无需注册、永久免费使用。</p>
+  <main class="container">
+    <section class="tool-section">
+      <h1>图片转PDF - 免费 安全 无需上传</h1>
 
-    <div class="tool-card">
-        <h2>JPG转PDF</h2>
-        <p>多张JPG图片一键合成标准A4 PDF，自动居中排版</p>
-        <a href="jpg2pdf.html">立即使用</a>
-    </div>
+      <div class="tool-buttons">
+        <a href="jpg2pdf.html">JPG转PDF</a>
+        <a href="png2pdf.html">PNG转PDF</a>
+      </div>
 
-    <div class="tool-card">
-        <h2>PNG转PDF</h2>
-        <p>支持透明PNG图片批量转换为PDF文档，无损画质</p>
-        <a href="png2pdf.html">立即使用</a>
-    </div>
+      <div class="tool-tabs">
+        <button class="tab-btn active" data-tab="jpg2pdf">JPG to PDF</button>
+        <button class="tab-btn" data-tab="png2pdf">PNG to PDF</button>
+      </div>
 
+      <div class="tool-panels">
+        <div class="panel active" id="jpg2pdf">
+          <div class="upload-box">
+            <label class="upload-btn" for="jpgFile">选择图片文件</label>
+            <input type="file" id="jpgFile" accept="image/*" multiple hidden>
+            <p>支持 JPG、PNG、GIF、BMP、WEBP 等所有格式</p>
+            <div class="preview-box" id="jpgPreview"></div>
+          </div>
+          <div class="action-box"></div>
+          <div class="result-box"></div>
+        </div>
+
+        <div class="panel" id="png2pdf">
+          <div class="upload-box">
+            <label class="upload-btn" for="pngFile">选择图片文件</label>
+            <input type="file" id="pngFile" accept="image/*" multiple hidden>
+            <p>支持 JPG、PNG、GIF、BMP、WEBP 等所有格式</p>
+            <div class="preview-box" id="pngPreview"></div>
+          </div>
+          <div class="action-box"></div>
+          <div class="result-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 中间广告 -->
     <div class="ad-container middle-ad" style="text-align:center; margin:30px 0;">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2923288635448337"
-             data-ad-slot="1000000002"
-             data-ad-format="fluid"
-             data-ad-layout="in-article"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2923288635448337"
+           data-ad-slot="1000000002"
+           data-ad-format="fluid"
+           data-ad-layout="in-article"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <section class="intro-section">
-        <h2>工具介绍</h2>
-        <p>本系列PDF工具完全在浏览器本地运行，图片和文件不会上传到服务器，严格保护您的隐私安全。</p>
-        <p>支持多张图片批量转换，操作简单，无需安装任何软件，打开即用。</p>
+      <h2>工具介绍</h2>
+      <p>本图片转PDF工具完全在浏览器本地运行，图片文件不会上传到服务器，严格保护您的隐私安全。</p>
+      <p>支持多张JPG、PNG、GIF、BMP、WEBP图片一键合成PDF，操作简单，无需安装任何软件。</p>
     </section>
 
     <section class="faq-section">
-        <h2>常见问题</h2>
-        <div class="faq-item">
-            <h3>文件会泄露吗？</h3>
-            <p>安全，所有转换都在本地浏览器完成，不上传、不存档。</p>
-        </div>
-        <div class="faq-item">
-            <h3>支持批量转换吗？</h3>
-            <p>支持，可一次性选择多张图片合成一个PDF文件。</p>
-        </div>
+      <h2>常见问题</h2>
+      <div class="faq-item">
+        <h3>图片会泄露吗？</h3>
+        <p>安全，所有转换都在本地浏览器完成，不上传、不存档。</p>
+      </div>
+      <div class="faq-item">
+        <h3>支持多张图片合并吗？</h3>
+        <p>支持，可一次性选择多张图片合成一个PDF文件。</p>
+      </div>
     </section>
-</main>
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-links">
-            <a href="index.html">首页</a>
-            <a href="help.html">帮助</a>
-            <a href="about.html">关于我们</a>
-            <a href="/sitemap.xml" target="_blank">网站地图</a>
-        </div>
-        <div class="copyright">© 2025 PDF工具合集 版权所有</div>
+    <section class="links-section">
+      <h2>友情链接</h2>
+      <div class="link-group">
+        <a href="index.html">图片转PDF</a>
+        <a href="jpg2pdf.html">JPG转PDF</a>
+        <a href="png2pdf.html">PNG转PDF</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 自动加载页脚 -->
+  <div id="footer-placeholder"></div>
+
+  <!-- 图片预览弹窗 -->
+  <div class="image-modal" id="image-modal">
+    <div class="modal-content">
+      <span class="modal-close" id="modal-close">×</span>
+      <img id="modal-img" src="">
     </div>
-</footer>
+  </div>
+
+  <script>
+    // 加载页头页脚
+    fetch("header.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("header-placeholder").innerHTML = data);
+      
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer-placeholder").innerHTML = data);
+
+    // 原有功能JS 完全不变
+    const { jsPDF } = window.jspdf;
+    let selectedFiles = [];
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.onclick = function(){
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+      }
+    });
+
+    const imageModal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalClose = document.getElementById('modal-close');
+    modalClose.onclick = ()=>{
+      imageModal.classList.remove('show');
+      document.body.style.overflow = '';
+    };
+    imageModal.onclick = e=>{
+      if(e.target === imageModal){
+        imageModal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    };
+
+    function previewImages(files, previewId){
+      selectedFiles = Array.from(files);
+      const box = document.getElementById(previewId);
+      box.innerHTML = '';
+      selectedFiles.forEach((file,i)=>{
+        let url = URL.createObjectURL(file);
+        let wrap = document.createElement('div');
+        wrap.className = 'thumbnail-wrap';
+        wrap.innerHTML = `<img src="${url}" class="preview-img"><span class="page-number">${i+1}</span>`;
+        wrap.querySelector('img').onclick = ()=>{
+          modalImg.src = url;
+          imageModal.classList.add('show');
+          document.body.style.overflow = 'hidden';
+        };
+        box.appendChild(wrap);
+      });
+    }
+
+    function exportToPdf(resultBox){
+      if(selectedFiles.length === 0){
+        resultBox.innerHTML = '<p style="color:red">请先选择图片</p>';
+        return;
+      }
+      resultBox.innerHTML = '<p style="color:#2563eb">正在生成PDF，请稍候...</p>';
+
+      let pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+      let loadImgArr = [];
+      selectedFiles.forEach(file=>{
+        loadImgArr.push(new Promise(resolve=>{
+          let img = new Image();
+          img.src = URL.createObjectURL(file);
+          img.onload = ()=>resolve(img);
+        }));
+      });
+
+      Promise.all(loadImgArr).then(imgs=>{
+        imgs.forEach((img, idx)=>{
+          if(idx > 0) pdf.addPage();
+          let a4W = 210, a4H = 297;
+          let ratio = Math.min(a4W/img.width, a4H/img.height);
+          let w = img.width * ratio;
+          let h = img.height * ratio;
+          let x = (a4W - w) / 2;
+          let y = (a4H - h) / 2;
+          pdf.addImage(img, 'JPEG', x, y, w, h);
+        });
+        pdf.save('图片合成.pdf');
+        resultBox.innerHTML = '<p style="color:green">PDF已生成，自动开始下载！</p>';
+      });
+    }
+
+    ['jpgFile','pngFile'].forEach(id=>{
+      document.getElementById(id).onchange = function(e){
+        let panel = this.closest('.panel');
+        let actionBox = panel.querySelector('.action-box');
+        let resultBox = panel.querySelector('.result-box');
+        let previewId = panel.querySelector('.preview-box').id;
+        previewImages(e.target.files, previewId);
+        actionBox.innerHTML = '<button class="upload-btn">立即合成并下载PDF</button>';
+        actionBox.querySelector('button').onclick = ()=>exportToPdf(resultBox);
+      };
+    });
+  </script>
 
 </body>
 </html>
