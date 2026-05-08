@@ -502,3 +502,25 @@ a.item:hover {
         grid-template-columns: 1fr;
     }
 }
+/* 只隐藏谷歌翻译顶部横幅，不阻断翻译核心逻辑 */
+.goog-te-banner-frame,
+.goog-te-ftab,
+.goog-te-gadget-icon,
+#goog-gt-tt {
+    display: none !important;
+}
+body {
+    top: 0 !important;
+}
+/* 翻译下拉框适配导航栏 */
+#gtranslate_wrapper {
+    display: inline-flex;
+    align-items: center;
+}
+.goog-te-gadget-simple {
+    border: 1px solid #ddd !important;
+    padding: 5px 8px !important;
+    border-radius: 6px !important;
+    background: #fff !important;
+}
+/* 关键：不要加 .notranslate 相关全局规则 */
