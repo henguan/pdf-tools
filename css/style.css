@@ -439,4 +439,60 @@ body {
     text-align: center;
 }
 
+/* ---------------- 工具导航列表样式 ---------------- */
+.tools-wrapper {
+  max-width: 1770px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.tools-group {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.tools-group h3 {
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+a.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.2s;
+}
+a.item:hover {
+  color: #2563eb;
+}
+.item svg {
+  width: 18px;
+  height: 18px;
+  fill: #2563eb;
+  flex-shrink: 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
