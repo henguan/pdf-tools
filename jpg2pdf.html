@@ -1,26 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG转PDF - 免费在线多张JPG图片合成PDF工具</title>
+    <meta name="description" content="免费在线JPG转PDF工具，支持多张JPG图片一键合成PDF，纯浏览器本地处理，文件不上传更安全。">
+    <meta name="keywords" content="JPG转PDF,JPG图片转PDF,多张JPG合成PDF">
+    <link rel="canonical" href="https://www.tool-pdf.top/jpg2pdf.html">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
-        .container {width: 1200px; margin: 0 auto;}
-        @media (max-width: 1200px) {.container {width: 95%;}}
-        .upload-box{border:2px dashed #ccc; padding:40px; text-align:center; border-radius:8px; margin:20px 0;}
-        .upload-btn{background:#2563eb; color:#fff; padding:10px 20px; border-radius:6px; cursor:pointer; display:inline-block;}
-        .preview-box{display:grid; grid-template-columns:repeat(auto-fill,120px); gap:10px; margin:20px 0;}
-        .preview-img{width:100px; height:auto; border:1px solid #eee; cursor:pointer;}
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+        }
+        @media (max-width: 1200px) {
+            .container {
+                width: 95%;
+            }
+        }
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 0;
+        }
+        .nav-menu a.active {
+            color: #2563eb;
+            font-weight: bold;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown > span {
+            cursor: pointer;
+            padding: 8px 0;
+            color: #333;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border: 1px solid #eee;
+            min-width: 160px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 999;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            white-space: nowrap;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .upload-box{
+            border:2px dashed #ccc;
+            padding:40px;
+            text-align:center;
+            border-radius:8px;
+            margin:20px 0;
+        }
+        .upload-btn{
+            background:#2563eb;
+            color:#fff;
+            padding:10px 20px;
+            border-radius:6px;
+            cursor:pointer;
+            display:inline-block;
+        }
+        .preview-box{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,120px);
+            gap:10px;
+            margin:20px 0;
+        }
+        .preview-img{
+            width:100px;
+            height:auto;
+            border:1px solid #eee;
+        }
+        .action-box{
+            margin:10px 0;
+            text-align:center;
+        }
+        .result-box{
+            text-align:center;
+            margin:10px 0;
+            font-size:16px;
+        }
     </style>
+</head>
+<body>
+
+<header class="navbar">
     <div class="container">
         <div class="logo">
             <img src="https://via.placeholder.com/40" alt="PDF">
             <span>图片转PDF工具</span>
         </div>
         <nav class="nav-menu">
-            <a href="index.html" class="active">首页</a>
-            <!-- 工具下拉菜单 -->
+            <a href="index.html">首页</a>
             <div class="dropdown">
                 <span>工具 ▾</span>
                 <div class="dropdown-menu">
                     <a href="index.html">图片转PDF首页</a>
-                    <a href="jpg2pdf.html">JPG转PDF</a>
+                    <a href="jpg2pdf.html" class="active">JPG转PDF</a>
                     <a href="png2pdf.html">PNG转PDF</a>
                 </div>
             </div>
@@ -28,23 +123,10 @@
             <a href="about.html">关于我们</a>
         </nav>
     </div>
-</head>
-<body>
-<header class="navbar">
-    <div class="container">
-        <div class="logo">
-            <img src="https://via.placeholder.com/40" alt="JPG转PDF">
-            <span>JPG转PDF工具</span>
-        </div>
-        <nav class="nav-menu">
-            <a href="index.html">首页</a>
-            <a href="jpg2pdf.html" class="active">JPG转PDF</a>
-            <a href="png2pdf.html">PNG转PDF</a>
-        </nav>
-    </div>
 </header>
 
-<div class="ad-container" style="text-align:center; margin:20px 0;">
+<!-- 顶部广告 -->
+<div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
     <ins class="adsbygoogle"
          style="display:block"
          data-ad-client="ca-pub-2923288635448337"
@@ -55,24 +137,61 @@
 </div>
 
 <main class="container">
-    <h1>JPG转PDF - 免费批量合成PDF</h1>
-    <p>选择多张JPG图片，一键生成标准A4 PDF，本地处理不上传，保护隐私。</p>
+    <section class="tool-section">
+        <h1>JPG转PDF - 免费批量合成PDF工具</h1>
 
-    <div class="upload-box">
-        <label class="upload-btn" for="jpgFile">选择JPG图片</label>
-        <input type="file" id="jpgFile" accept="image/jpeg,image/jpg" multiple hidden>
-        <p>支持多选多张JPG，自动分页合成PDF</p>
+        <div class="upload-box">
+            <label class="upload-btn" for="jpgFile">选择JPG图片文件</label>
+            <input type="file" id="jpgFile" accept="image/jpeg,image/jpg" multiple hidden>
+            <p>支持批量多张JPG图片，自动分页合成PDF</p>
+        </div>
+
+        <div class="preview-box" id="jpgPreview"></div>
+        <div class="action-box"></div>
+        <div class="result-box"></div>
+    </section>
+
+    <!-- 中间广告 -->
+    <div class="ad-container middle-ad" style="text-align:center; margin:30px 0;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2923288635448337"
+             data-ad-slot="1000000002"
+             data-ad-format="fluid"
+             data-ad-layout="in-article"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <div class="preview-box" id="jpgPreview"></div>
-    <div class="action-box"></div>
-    <div class="result-box"></div>
+    <section class="intro-section">
+        <h2>工具介绍</h2>
+        <p>本JPG转PDF工具完全在浏览器本地运行，图片文件不会上传到服务器，严格保护您的隐私安全。</p>
+        <p>支持多张JPG图片一键合成PDF，操作简单，无需安装任何软件。</p>
+    </section>
+
+    <section class="faq-section">
+        <h2>常见问题</h2>
+        <div class="faq-item">
+            <h3>图片会泄露吗？</h3>
+            <p>安全，所有转换都在本地浏览器完成，不上传、不存档。</p>
+        </div>
+        <div class="faq-item">
+            <h3>支持多张图片合并吗？</h3>
+            <p>支持，可一次性选择多张JPG图片合成一个PDF文件。</p>
+        </div>
+    </section>
 </main>
 
 <footer class="footer">
     <div class="container">
-        <a href="index.html">返回首页</a>
-        <div class="copyright">© 2025 免费JPG转PDF工具</div>
+        <div class="footer-links">
+            <a href="index.html">首页</a>
+            <a href="jpg2pdf.html">JPG转PDF</a>
+            <a href="png2pdf.html">PNG转PDF</a>
+            <a href="help.html">帮助</a>
+            <a href="about.html">关于我们</a>
+            <a href="/sitemap.xml" target="_blank">网站地图</a>
+        </div>
+        <div class="copyright">© 2025 图片转PDF工具 版权所有</div>
     </div>
 </footer>
 
@@ -80,56 +199,63 @@
 const { jsPDF } = window.jspdf;
 let selectedFiles = [];
 
-function previewImages(files){
-    selectedFiles = Array.from(files);
+document.getElementById('jpgFile').addEventListener('change', function(e){
+    selectedFiles = Array.from(e.target.files);
     const box = document.getElementById('jpgPreview');
     box.innerHTML = '';
-    selectedFiles.forEach((file,i)=>{
+
+    selectedFiles.forEach((file, i) => {
         let url = URL.createObjectURL(file);
-        let div = document.createElement('div');
-        div.innerHTML = `<img src="${url}" class="preview-img"><div>第${i+1}页</div>`;
-        box.appendChild(div);
+        let wrap = document.createElement('div');
+        wrap.className = 'thumbnail-wrap';
+        wrap.innerHTML = `<img src="${url}" class="preview-img"><span class="page-number">${i+1}</span>`;
+        box.appendChild(wrap);
     });
-    document.querySelector('.action-box').innerHTML = '<button class="upload-btn" onclick="exportToPdf()">立即生成PDF</button>';
-}
+
+    document.querySelector('.action-box').innerHTML = `
+    <button class="upload-btn" onclick="exportToPdf()">立即合成并下载PDF</button>
+    `;
+});
 
 function exportToPdf(){
     if(selectedFiles.length === 0){
         document.querySelector('.result-box').innerHTML = '<p style="color:red">请先选择图片</p>';
         return;
     }
-    document.querySelector('.result-box').innerHTML = '<p style="color:#2563eb">正在生成PDF...</p>';
-    let pdf = new jsPDF({orientation:'p',unit:'mm',format:'a4'});
-    let promiseArr = [];
-    selectedFiles.forEach(file=>{
-        promiseArr.push(new Promise(res=>{
+
+    document.querySelector('.result-box').innerHTML = '<p style="color:#2563eb">正在生成PDF，请稍候...</p>';
+
+    let pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
+    });
+
+    let promises = selectedFiles.map(file => {
+        return new Promise(resolve => {
             let img = new Image();
             img.src = URL.createObjectURL(file);
-            img.onload = ()=>res(img);
-        }));
-    });
-    Promise.all(promiseArr).then(imgs=>{
-        imgs.forEach((img,idx)=>{
-            if(idx>0) pdf.addPage();
-            let a4W=210,a4H=297;
-            let ratio = Math.min(a4W/img.width, a4H/img.height);
-            let w = img.width*ratio;
-            let h = img.height*ratio;
-            let x = (a4W-w)/2;
-            let y = (a4H-h)/2;
-            pdf.addImage(img,'JPEG',x,y,w,h);
+            img.onload = () => resolve(img);
         });
-        pdf.save('JPG转PDF文档.pdf');
-        document.querySelector('.result-box').innerHTML = '<p style="color:green">PDF下载已开始！</p>';
+    });
+
+    Promise.all(promises).then(imgs => {
+        imgs.forEach((img, idx) => {
+            if(idx > 0) pdf.addPage();
+            let a4W = 210, a4H = 297;
+            let ratio = Math.min(a4W / img.width, a4H / img.height);
+            let w = img.width * ratio;
+            let h = img.height * ratio;
+            let x = (a4W - w) / 2;
+            let y = (a4H - h) / 2;
+            pdf.addImage(img, 'JPEG', x, y, w, h);
+        });
+        pdf.save('JPG转PDF.pdf');
+        document.querySelector('.result-box').innerHTML = '<p style="color:green">PDF已生成，自动开始下载！</p>';
     });
 }
-
-document.getElementById('jpgFile').addEventListener('change',e=>{
-    previewImages(e.target.files);
-});
 </script>
+
 </body>
 </html>
-
-
 
