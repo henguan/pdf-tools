@@ -1,25 +1,26 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNG转PDF - 免费在线透明图片转PDF工具</title>
-    <meta name="description" content="免费PNG转PDF在线工具，支持透明PNG批量合成PDF，纯本地浏览器处理，安全无水印。">
-    <meta name="keywords" content="PNG转PDF,透明图片转PDF,多张PNG合成PDF">
-    <link rel="canonical" href="https://www.tool-pdf.top/png2pdf.html">
+    <title>PDF Compress - Free Online PDF Compression Tool</title>
+    <meta name="description" content="Free online PDF compression tool, shrink PDF size while keeping quality. Processed locally in browser, safe and no watermark.">
+    <meta name="keywords" content="PDF compress, shrink PDF, reduce PDF size, online PDF compressor">
+    <link rel="canonical" href="https://www.tool-pdf.top/pdf-compress.html">
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- AdSense 完整保留 -->
+    <!-- AdSense Keep Original -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 </head>
 
 <body>
 
-    <!-- 公共页头 -->
+    <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
 
-    <!-- 顶部广告 原样保留 -->
+    <!-- Top Ad Keep Original -->
     <div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
         <ins class="adsbygoogle"
              style="display:block"
@@ -30,21 +31,41 @@
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <main class="container">
-        <h1>PNG转PDF - 透明图片批量转PDF</h1>
-        <p>支持透明背景PNG图片，批量转换生成标准A4 PDF，本地处理更安全。</p>
+    <main class="container" style="text-align:center; max-width:768px; margin:0 auto; padding:0 15px;">
+        <h1 style="text-align:center;">PDF Compress - Free Online Compression Tool</h1>
+        <p style="text-align:center;">Shrink PDF file size with good quality, local browser processing, safe & no watermark.</p>
 
-        <div class="upload-box">
-            <label class="upload-btn" for="pngFile">选择PNG图片</label>
-            <input type="file" id="pngFile" accept="image/png" multiple hidden>
-            <p>支持批量多选，自动分页合成PDF</p>
+        <div class="upload-box" style="text-align:center; margin:30px 0;">
+            <label class="upload-btn" for="pdfFile" style="display:inline-block;">Select PDF File</label>
+            <input type="file" id="pdfFile" accept=".pdf" hidden>
+            <p style="text-align:center; margin-top:10px;">Support single PDF file compression</p>
         </div>
 
-        <div class="preview-box" id="pngPreview"></div>
-        <div class="action-box"></div>
-        <div class="result-box"></div>
+        <!-- Compression Level -->
+        <div id="qualityGroup" style="display:none; text-align:center; margin:20px 0;">
+            <label>Compression Level (Smaller value = smaller file)</label>
+            <select id="quality" style="padding:8px 12px; margin-left:8px;">
+                <option value="0.3">Low Compression (High Quality)</option>
+                <option value="0.5" selected>Medium Compression (Recommended)</option>
+                <option value="0.7">High Compression (Smaller Size)</option>
+            </select>
+        </div>
 
-        <!-- 中间广告 原样保留 -->
+        <!-- Action Buttons Center -->
+        <div class="action-box" style="text-align:center; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <button class="upload-btn" id="compressBtn" disabled>Start Compress</button>
+            <button class="upload-btn" onclick="clearFile()">Re-select File</button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" style="display:none; text-align:center; margin:20px 0;">
+            <div>Compressing PDF, please wait...</div>
+        </div>
+
+        <!-- Result -->
+        <div class="result-box" style="text-align:center; margin:20px 0;"></div>
+
+        <!-- Middle Ad Keep Original -->
         <div class="ad-container middle-ad" style="text-align:center; margin:30px 0;">
             <ins class="adsbygoogle"
                  style="display:block"
@@ -56,11 +77,11 @@
         </div>
     </main>
 
-    <!-- 公共页脚 -->
+    <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
     <script>
-        // 加载公共头尾
+        // Load Header & Footer
         fetch("/header.html")
             .then(res => res.text())
             .then(data => document.getElementById("header-placeholder").innerHTML = data);
@@ -69,46 +90,87 @@
             .then(res => res.text())
             .then(data => document.getElementById("footer-placeholder").innerHTML = data);
 
-        // PNG转PDF 功能完全不变
-        const { jsPDF } = window.jspdf;
-        let selectedFiles = [];
-        document.getElementById('pngFile').addEventListener('change',function(e){
-            selectedFiles = Array.from(e.target.files);
-            const box = document.getElementById('pngPreview');
-            box.innerHTML = '';
-            selectedFiles.forEach((file,i)=>{
-                let url = URL.createObjectURL(file);
-                let div = document.createElement('div');
-                div.innerHTML = `<img src="${url}" class="preview-img"><div>第${i+1}页</div>`;
-                box.appendChild(div);
-            });
-            document.querySelector('.action-box').innerHTML = `<button class="upload-btn" onclick="exportPDF()">生成PDF</button>`;
+        // PDF Compress Logic
+        let currentFile = null;
+        let originalSize = 0;
+
+        const fileInput = document.getElementById('pdfFile');
+        const qualityGroup = document.getElementById('qualityGroup');
+        const compressBtn = document.getElementById('compressBtn');
+        const loading = document.getElementById('loading');
+        const resultBox = document.querySelector('.result-box');
+
+        // File Select
+        fileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (!file.type.includes('pdf')) {
+                alert('Please upload a PDF file');
+                return;
+            }
+            currentFile = file;
+            originalSize = file.size;
+            qualityGroup.style.display = 'block';
+            compressBtn.disabled = false;
         });
 
-        function exportPDF(){
-            if(selectedFiles.length===0){alert('请选择图片');return;}
-            let pdf = new jsPDF('p','mm','a4');
-            let count = 0;
-            selectedFiles.forEach((file,idx)=>{
-                let img = new Image();
-                img.src = URL.createObjectURL(file);
-                img.onload = function(){
-                    if(idx>0) pdf.addPage();
-                    let w=210,h=297;
-                    let r = Math.min(w/img.width,h/img.height);
-                    let x=(w-img.width*r)/2;
-                    let y=(h-img.height*r)/2;
-                    pdf.addImage(img,'PNG',x,y,img.width*r,img.height*r);
-                    count++;
-                    if(count===selectedFiles.length){
-                        pdf.save('PNG转PDF.pdf');
-                        document.querySelector('.result-box').innerHTML='<p style="color:green">PDF已生成并开始下载</p>';
-                    }
-                }
-            });
+        // Start Compress
+        compressBtn.onclick = async () => {
+            if (!currentFile) return;
+
+            compressBtn.disabled = true;
+            loading.style.display = 'block';
+            resultBox.innerHTML = '';
+
+            try {
+                const arrayBuffer = await currentFile.arrayBuffer();
+                const originalDoc = await PDFLib.PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+                const newDoc = await PDFLib.PDFDocument.create();
+
+                const pageIndices = originalDoc.getPageIndices();
+                const copiedPages = await newDoc.copyPages(originalDoc, pageIndices);
+                copiedPages.forEach(page => newDoc.addPage(page));
+
+                const pdfBytes = await newDoc.save({
+                    useObjectStreams: true,
+                    compress: true
+                });
+
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                // Auto Download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = currentFile.name.replace('.pdf', '_compressed.pdf');
+                a.click();
+                URL.revokeObjectURL(url);
+
+                // Show Size Info
+                const before = (originalSize / 1024 / 1024).toFixed(2);
+                const after = (blob.size / 1024 / 1024).toFixed(2);
+                resultBox.innerHTML = `
+                    <p style="color:green">Compression Completed!</p>
+                    <p>Original: ${before}MB → Compressed: ${after}MB</p>
+                `;
+
+            } catch (err) {
+                alert('Compress failed: ' + err.message);
+            } finally {
+                loading.style.display = 'none';
+                compressBtn.disabled = false;
+            }
+        };
+
+        // Clear Selected File
+        function clearFile() {
+            fileInput.value = '';
+            currentFile = null;
+            qualityGroup.style.display = 'none';
+            compressBtn.disabled = true;
+            resultBox.innerHTML = '';
         }
     </script>
 
 </body>
 </html>
-
