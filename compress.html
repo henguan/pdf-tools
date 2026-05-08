@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Compress - Online Tool</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/tools/tool.css">
+</head>
+<body>
+<div data-include="/header.html"></div>
+
+<div class="page-container">
+    <div class="converter">
+
+        <div class="header">
+            <h1>🗜️ PDF Compress Tool</h1>
+            <p>Compress PDF size online with good quality, processed locally for privacy</p>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <div style="font-size: 36px; margin-bottom: 10px;">📄</div>
+            <div>Click to Upload PDF File</div>
+            <div style="margin-top: 8px; font-size: 14px; opacity: 0.7;">Support single PDF file compression</div>
+        </div>
+        <input type="file" id="fileInput" accept=".pdf">
+
+        <!-- Compression Level -->
+        <div class="input-group" id="qualityGroup" style="display:none;">
+            <label>Compression Level (Smaller value = Smaller file)</label>
+            <select id="quality" class="unit-select">
+                <option value="0.3">Low Compression (High Quality)</option>
+                <option value="0.5" selected>Medium Compression (Recommended)</option>
+                <option value="0.7">High Compression (Smaller Size)</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:10px;">
+            <button class="btn btn-primary" id="compressBtn" disabled>Start Compress</button>
+            <button class="btn btn-secondary" onclick="clearFile()">Re-select File</button>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="compress-loading" id="loading">
+            <div class="compress-spin"></div>
+            Compressing PDF, please wait...
+        </div>
+
+        <!-- Result Area -->
+        <div class="result-group" id="resultBox" style="display:none; margin-top:20px;">
+            <div class="result-title">Compression Completed</div>
+            <div class="result-content">
+                <a id="downloadLink" class="btn btn-success" style="text-decoration:none; display:inline-block;">
+                    Download Compressed PDF
+                </a>
+                <div id="sizeInfo" style="margin-top:10px; font-size:14px;"></div>
+            </div>
+        </div>
+
+        <div class="tip-text">
+            All files are processed locally in your browser, no upload to server, fully private and secure.
+        </div>
+
+    </div>
+</div>
+
+<div data-include="/footer.html"></div>
+
+<script src="/tools/pdf-lib.min.js"></script>
+<script src="/include.js"></script>
+
+<script>
+let currentFile = null;
+let originalSize = 0;
+
+const fileInput = document.getElementById('fileInput');
+const qualityGroup = document.getElementById('qualityGroup');
+const compressBtn = document.getElementById('compressBtn');
+const loading = document.getElementById('loading');
+const resultBox = document.getElementById('resultBox');
+const downloadLink = document.getElementById('downloadLink');
+const sizeInfo = document.getElementById('sizeInfo');
+
+loading.style.display = 'none';
+
+// Select File
+fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.includes('pdf')) {
+        alert('Please upload a PDF file');
+        return;
+    }
+    currentFile = file;
+    originalSize = file.size;
+    qualityGroup.style.display = 'block';
+    compressBtn.disabled = false;
+});
+
+// Compress Logic
+compressBtn.onclick = async () => {
+    if (!currentFile) return;
+
+    compressBtn.disabled = true;
+    loading.style.display = 'block';
+    resultBox.style.display = 'none';
+
+    try {
+        const arrayBuffer = await currentFile.arrayBuffer();
+        const originalDoc = await PDFLib.PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+        const newDoc = await PDFLib.PDFDocument.create();
+
+        const pageIndices = originalDoc.getPageIndices();
+        const copiedPages = await newDoc.copyPages(originalDoc, pageIndices);
+        copiedPages.forEach(page => newDoc.addPage(page));
+
+        const pdfBytes = await newDoc.save({
+            useObjectStreams: true,
+            compress: true
+        });
+
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        downloadLink.href = url;
+        downloadLink.download = currentFile.name.replace('.pdf', '_compressed.pdf');
+        resultBox.style.display = 'block';
+
+        // Show file size info
+        const before = (originalSize / 1024 / 1024).toFixed(2);
+        const after = (blob.size / 1024 / 1024).toFixed(2);
+        sizeInfo.innerText = `Original: ${before}MB → Compressed: ${after}MB`;
+
+    } catch (err) {
+        alert('Compress failed: ' + err.message);
+    } finally {
+        loading.style.display = 'none';
+        compressBtn.disabled = false;
+    }
+};
+
+// Clear Selected File
+function clearFile() {
+    fileInput.value = '';
+    currentFile = null;
+    qualityGroup.style.display = 'none';
+    compressBtn.disabled = true;
+    resultBox.style.display = 'none';
+}
+</script>
+</body>
+</html>
+
