@@ -1,215 +1,106 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>帮助中心 - PDF工具盒在线使用教程</title>
-    <meta name="description" content="PDF工具盒帮助中心，提供图片转PDF使用教程，解答常见问题。">
-    <meta name="keywords" content="PDF工具帮助,PDF使用教程,图片转PDF教程">
+    <title>Help Center - PDF Toolbox Online Tutorial</title>
+    <meta name="description" content="PDF Toolbox Help Center: User guides for PDF conversion, compression, merging, splitting and image to PDF. All tools process locally in your browser.">
+    <meta name="keywords" content="PDF Help, PDF Tutorial, PDF Converter, Image to PDF Guide">
     <link rel="canonical" href="https://www.tool-pdf.top/help.html">
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Adsense广告脚本 -->
+
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
-    <style>
-        /* 页面宽度固定 1200px 居中 */
-        .container {
-            width: 1200px;
-            margin: 0 auto;
-        }
-        @media (max-width: 1200px) {
-            .container {
-                width: 95%;
-            }
-        }
-    </style>
 </head>
+
 <body>
-<!-- 导航栏 -->
-<header class="navbar">
-    <div class="container">
-        <div class="logo">
-            <img src="https://via.placeholder.com/40" alt="PDF工具LOGO">
-            <span>PDF工具</span>
-        </div>
-        <nav class="nav-menu">
-            <a href="index.html">PDF工具</a>
-            <a href="help.html" class="active">帮助</a>
-            <a href="about.html">关于我们</a>
-        </nav>
+
+    <!-- Public Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Top Ad -->
+    <div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2923288635448337"
+             data-ad-slot="1000000003"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
-</header>
 
-<!-- 顶部广告位 -->
-<div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
-    <ins class="adsbygoogle" 
-         style="display:block" 
-         data-ad-client="ca-pub-2923288635448337" 
-         data-ad-slot="1000000003" 
-         data-ad-format="auto" 
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
+    <main class="container">
+        <section class="help-section">
+            <h1>Help Center</h1>
 
-<main class="container">
-    <section class="help-section" style="margin: 40px 0; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,0.05);">
-        <h1 style="font-size: 30px; margin-bottom: 30px; color: #222; text-align: center;">帮助中心</h1>
-        
-        <div class="help-content">
-            <h2 style="font-size: 22px; margin: 30px 0 20px; color: #2563eb; border-bottom: 1px solid #eee; padding-bottom: 10px;">一、图片转PDF使用教程</h2>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">1. 图片转PDF操作步骤</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>在首页点击「JPG转PDF」或「PNG转PDF」按钮；</li>
-                    <li>点击「选择图片文件」，可选择单张或多张图片；</li>
-                    <li>选择完成后，点击「立即合成并下载PDF」；</li>
-                    <li>PDF会在浏览器本地生成，自动开始下载。</li>
-                </ol>
+            <div class="help-content">
+                <h2>1. Client-Side PDF Tool User Guide (Local Processing Only)</h2>
+
+                <div class="help-item">
+                    <h3>1.1 PPT to PDF (Local Processing)</h3>
+                    <ol>
+                        <li>Go to the homepage and click the "PPT to PDF" tab;</li>
+                        <li>Click "Choose PPT File" to select a local .ppt or .pptx file (drag & drop supported);</li>
+                        <li>The file will be converted locally in your browser (no server upload);</li>
+                        <li>Click "Download File" to save the converted PDF.</li>
+                    </ol>
+                </div>
+
+                <div class="help-item">
+                    <h3>1.2 PDF Compression (Local Processing)</h3>
+                    <ol>
+                        <li>Click the "PDF Compress" tab on the homepage;</li>
+                        <li>Select a local PDF file (drag & drop supported);</li>
+                        <li>Compression completes locally in seconds;</li>
+                        <li>Click "Download File" to get the compressed PDF.</li>
+                    </ol>
+                </div>
+
+                <div class="help-item">
+                    <h3>1.3 Image to PDF (JPG / PNG)</h3>
+                    <ol>
+                        <li>Select "JPG to PDF" or "PNG to PDF" on the homepage;</li>
+                        <li>Click "Choose Images" to upload single or multiple image files;</li>
+                        <li>All conversions run locally in your browser;</li>
+                        <li>Click the download button to export the PDF file.</li>
+                    </ol>
+                </div>
+
+                <div class="help-item">
+                    <h3>1.4 PDF Merge & Split</h3>
+                    <ol>
+                        <li><strong>Merge PDF:</strong> Select multiple PDF files, they will be combined into one file;</li>
+                        <li><strong>Split PDF:</strong> Upload a PDF and enter page ranges (e.g. 1,3,5-8) to split;</li>
+                        <li>All operations are 100% local, no files are uploaded to any server.</li>
+                    </ol>
+                </div>
+
+                <div class="help-item">
+                    <h3>1.5 Is My Data Safe?</h3>
+                    <ol>
+                        <li>All files are processed locally in your browser;</li>
+                        <li>No files are uploaded to any server;</li>
+                        <li>All temporary data is deleted automatically when you close the tab.</li>
+                    </ol>
+                </div>
             </div>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">2. 支持哪些图片格式？</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>支持 JPG、JPEG、PNG、GIF、BMP、WEBP 等常见格式；</li>
-                    <li>支持多张图片同时上传，自动合成一个PDF文件。</li>
-                </ol>
-            </div>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">3. 文件安全吗？会泄露吗？</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>所有转换均在您的浏览器本地完成；</li>
-                    <li>图片和PDF文件不会上传到任何服务器；</li>
-                    <li>关闭网页后，所有文件痕迹自动清除，绝对安全。</li>
-                </ol>
-            </div>
+        </section>
+    </main>
 
-        </div>
-    </section>
-</main>
+    <!-- Public Footer -->
+    <div id="footer-placeholder"></div>
 
-<!-- 页脚 -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-links">
-            <a href="index.html">首页</a>
-            <a href="help.html">帮助</a>
-            <a href="about.html">关于我们</a>
-            <a href="/sitemap.xml" target="_blank">网站地图</a>
-        </div>
-        <div class="copyright">© 2025 PDF工具盒 版权所有</div>
-    </div>
-</footer>
+    <script>
+        // Load Public Header & Footer
+        fetch("/header.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("header-placeholder").innerHTML = data);
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>帮助中心 - PDF工具盒在线使用教程</title>
-    <meta name="description" content="PDF工具盒帮助中心，提供PDF转换、压缩、合并、拆分等功能使用教程，解答常见使用问题。">
-    <meta name="keywords" content="PDF工具帮助,PDF使用教程,PDF转换教程">
-    <link rel="canonical" href="https://www.tool-pdf.top/help.html">
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- Adsense广告脚本（替换为你的ID） -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
-    <style>
-        /* 页面宽度固定 1200px 居中 */
-        .container {
-            width: 1200px;
-            margin: 0 auto;
-        }
-        @media (max-width: 1200px) {
-            .container {
-                width: 95%;
-            }
-        }
-    </style>
-</head>
-<body>
-<!-- 导航栏 -->
-<header class="navbar">
-    <div class="container">
-        <div class="logo">
-            <img src="https://via.placeholder.com/40" alt="PDF工具LOGO">
-            <span>PDF工具</span>
-        </div>
-        <nav class="nav-menu">
-            <a href="index.html">PDF工具</a>
-            <a href="help.html" class="active">帮助</a>
-            <a href="about.html">关于我们</a>
-        </nav>
-    </div>
-</header>
-
-<!-- 顶部广告位 -->
-<div class="ad-container top-ad">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2923288635448337" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<main class="container">
-    <section class="help-section" style="margin: 40px 0; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,0.05);">
-        <h1 style="font-size: 30px; margin-bottom: 30px; color: #222; text-align: center;">帮助中心</h1>
-        
-        <div class="help-content">
-            <h2 style="font-size: 22px; margin: 30px 0 20px; color: #2563eb; border-bottom: 1px solid #eee; padding-bottom: 10px;">一、纯前端工具使用指南（无需后端，本地处理）</h2>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">1. PPT转PDF操作步骤（纯前端）</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>在首页点击「PPT转PDF」标签，进入功能面板；</li>
-                    <li>点击「选择PPT文件」按钮，选择本地的.ppt或.pptx格式文件（可拖放文件至上传框）；</li>
-                    <li>文件上传后，系统会在本地自动开始转换（不上传服务器），转换完成后会显示「下载文件」按钮；</li>
-                    <li>点击下载按钮，即可获取转换后的PDF文件。</li>
-                </ol>
-            </div>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">2. PDF压缩操作步骤（纯前端）</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>在首页点击「PDF压缩」标签，进入功能面板；</li>
-                    <li>点击「选择PDF文件」按钮，选择本地的.pdf格式文件（可拖放文件至上传框）；</li>
-                    <li>文件上传后，本地自动完成压缩，转换完成后点击「下载文件」获取压缩后的PDF。</li>
-                </ol>
-            </div>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">3. 图片转PDF操作步骤（纯前端）</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>在首页点击「JPG转PDF」或「PNG转PDF」标签，进入功能面板；</li>
-                    <li>点击「选择图片」按钮，可选择单张或多张图片；</li>
-                    <li>文件选择完毕，本地自动完成转换，转换完成后点击「下载文件」即可。</li>
-                </ol>
-            </div>
-            
-            <div class="help-item" style="margin-bottom: 25px;">
-                <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">4. PDF合并/拆分操作步骤</h3>
-                <ol style="margin-left: 20px; color: #555; font-size: 15px; line-height: 1.8;">
-                    <li>合并PDF：选择多个PDF文件，系统自动合并为一个文件后下载；</li>
-                    <li>拆分PDF：选择PDF文件，并输入需要拆分的页码（如1,3,5-8），提交后下载拆分后的文件；</li>
-                    <li>所有操作均在浏览器本地完成，文件不会上传服务器。</li>
-                </ol>
-            </div>
-
-        </div>
-    </section>
-</main>
-
-<!-- 页脚 -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-links">
-            <a href="index.html" target="_blank">首页</a>
-            <a href="help.html">帮助</a>
-            <a href="about.html" target="_blank">关于我们</a>
-            <a href="/sitemap.xml" target="_blank">网站地图</a>
-        </div>
-        <div class="copyright">© 2025 PDF工具盒 版权所有</div>
-    </div>
-</footer>
+        fetch("/footer.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("footer-placeholder").innerHTML = data);
+    </script>
 
 </body>
 </html>
