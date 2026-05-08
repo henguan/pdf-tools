@@ -1,3 +1,4 @@
+
 /* 全局重置 */
 * {
     margin: 0;
@@ -10,6 +11,7 @@ body {
     line-height: 1.6;
     color: #333;
     background: #f8fafc;
+    top: 0 !important;
 }
 
 /* 导航栏：通栏背景，内容1200px */
@@ -54,15 +56,19 @@ body {
     border-radius: 8px;
     object-fit: cover;
 }
+
+/* 导航菜单 + 下拉菜单 */
 .nav-menu {
     display: flex;
     gap: 26px;
+    align-items: center;
 }
 .nav-menu a {
     text-decoration: none;
     color: #333;
     font-size: 16px;
     transition: color 0.25s ease;
+    padding: 8px 0;
 }
 .nav-menu a.active, 
 .nav-menu a:hover {
@@ -70,7 +76,56 @@ body {
     font-weight: 500;
 }
 
-/* AdSense 广告容器（合规：间距足够、不贴按钮） */
+/* 下拉容器 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown > span {
+    cursor: pointer;
+    padding: 8px 0;
+    color: #333;
+    font-size: 16px;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    min-width: 160px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 999;
+}
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    white-space: nowrap;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* 多语言下拉框样式 */
+.lang-select {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    cursor: pointer;
+    background: white;
+}
+
+/* 隐藏 Google 翻译丑陋条 */
+.goog-te-banner-frame,
+.goog-te-ftab,
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+/* AdSense 广告容器 */
 .ad-container {
     margin: 30px auto;
     max-width: 1770px;
@@ -177,7 +232,7 @@ body {
     border-radius: 4px;
 }
 
-/* 大图弹窗（合规：弹窗内不放广告） */
+/* 大图弹窗 */
 .image-modal {
     position: fixed;
     top: 0;
@@ -221,140 +276,7 @@ body {
     text-decoration: none;
 }
 
-/* 介绍/FAQ/友情链接：1200px */
-.intro-section, 
-.faq-section, 
-.links-section {
-    max-width: 1200px !important;
-    width: 100% !important;
-    margin: 46px auto !important;
-    background: #fff;
-    padding: 32px;
-    border-radius: 14px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-.intro-section h2, 
-.faq-section h2, 
-.links-section h2 {
-    font-size: 23px;
-    margin-bottom: 20px;
-    color: #1e293b;
-}
-.intro-section p {
-    margin-bottom: 15px;
-    font-size: 15px;
-    color: #475569;
-    line-height: 1.75;
-}
-.faq-item {
-    margin-bottom: 16px;
-    text-align: left;
-}
-.faq-item h3 {
-    font-size: 16px;
-    color: #2563eb;
-    margin-bottom: 6px;
-}
-.faq-item p {
-    color: #475569;
-    font-size: 15px;
-}
-.link-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-}
-.link-group a {
-    color: #2563eb;
-    text-decoration: none;
-    font-size: 15px;
-}
-.link-group a:hover { text-decoration: underline; }
-
-/* 页脚：1200px */
-.footer {
-    background: #1e293b;
-    color: #f1f5f9;
-    padding: 36px 0;
-    margin-top: 50px;
-    text-align: center;
-}
-.footer .container { max-width: 1200px !important; }
-.footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 22px;
-    margin-bottom: 16px;
-}
-.footer-links a {
-    color: #cbd5e1;
-    text-decoration: none;
-    font-size: 15px;
-}
-.copyright {
-    color: #94a3b8;
-    font-size: 14px;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .container { padding: 0 12px; }
-    .tool-section h1 { font-size: 24px; }
-    .tool-panels { padding: 28px 16px; }
-    .ad-container { margin: 20px auto; }
-    .navbar .container { padding: 0 12px; }
-    .nav-menu { gap: 14px; }
-    .nav-menu a { font-size: 15px; }
-}
-/* 导航下拉菜单样式 */
-.nav-menu {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
-.nav-menu a {
-    text-decoration: none;
-    color: #333;
-    padding: 8px 0;
-}
-.nav-menu a.active {
-    color: #2563eb;
-    font-weight: bold;
-}
-
-/* 下拉容器 */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown > span {
-    cursor: pointer;
-    padding: 8px 0;
-    color: #333;
-}
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #fff;
-    border: 1px solid #eee;
-    min-width: 160px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    display: none;
-    z-index: 999;
-}
-.dropdown-menu a {
-    display: block;
-    padding: 10px 15px;
-    white-space: nowrap;
-}
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-
+/* 上传区域增强 */
 .upload-area {
     cursor: pointer;
     padding: 40px 20px;
@@ -439,7 +361,84 @@ body {
     text-align: center;
 }
 
-/* ---------------- 工具导航列表样式 ---------------- */
+/* 介绍/FAQ/友情链接：1200px */
+.intro-section, 
+.faq-section, 
+.links-section {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 46px auto !important;
+    background: #fff;
+    padding: 32px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.intro-section h2, 
+.faq-section h2, 
+.links-section h2 {
+    font-size: 23px;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+.intro-section p {
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.75;
+}
+.faq-item {
+    margin-bottom: 16px;
+    text-align: left;
+}
+.faq-item h3 {
+    font-size: 16px;
+    color: #2563eb;
+    margin-bottom: 6px;
+}
+.faq-item p {
+    color: #475569;
+    font-size: 15px;
+}
+.link-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+}
+.link-group a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 15px;
+}
+.link-group a:hover { text-decoration: underline; }
+
+/* 页脚：1200px */
+.footer {
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 36px 0;
+    margin-top: 50px;
+    text-align: center;
+}
+.footer .container { max-width: 1200px !important; }
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
+    margin-bottom: 16px;
+}
+.footer-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 15px;
+}
+.copyright {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* 工具导航列表样式 */
 .tools-wrapper {
   max-width: 1770px;
   margin: 40px auto;
@@ -491,8 +490,15 @@ a.item:hover {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
-  .tools-grid {
-    grid-template-columns: 1fr;
-  }
-}
+    .container { padding: 0 12px; }
+    .tool-section h1 { font-size: 24px; }
+    .tool-panels { padding: 28px 16px; }
+    .ad-container { margin: 20px auto; }
+    .navbar .container { padding: 0 12px; }
+    .nav-menu { gap: 14px; }
+    .nav-menu a { font-size: 15px; }
 
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
