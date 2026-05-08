@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split PDF - Separate PDF Pages Online for Free</title>
+    <meta name="description" content="Free online PDF splitter. Upload a PDF file and extract or separate pages by range. All files processed locally in your browser.">
+    <meta name="keywords" content="split PDF, separate PDF, extract PDF pages, PDF splitter online">
+    <link rel="canonical" href="https://www.tool-pdf.top/split.html">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- Public Header -->
+    <div id="header-placeholder"></div>
+
+    <div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2923288635448337"
+             data-ad-slot="1000000007"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <main class="container">
+        <section class="tool-section">
+            <h1>✂️ Split PDF Online</h1>
+            <p>Upload a PDF file and extract or separate pages into multiple documents.</p>
+
+            <div class="tool-panels">
+                <div class="panel active">
+
+                    <!-- Upload Area -->
+                    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                        <div style="font-size: 40px; margin-bottom: 10px;">📄</div>
+                        <div style="margin-bottom: 6px;">Click or drag to upload a PDF file</div>
+                        <div style="font-size: 14px; color: #666;">Only single file is supported</div>
+                    </div>
+                    <input type="file" id="fileInput" accept=".pdf" style="display:none;">
+
+                    <!-- File Info -->
+                    <div id="fileInfo" style="margin:20px 0; display:none; text-align:left;">
+                        <div style="padding:12px 16px; background:#f8fafc; border-radius:8px;">
+                            <div style="font-weight:600; margin-bottom:6px;" id="fileName"></div>
+                            <div style="font-size:14px; color:#64748b;" id="pageCount"></div>
+                        </div>
+                    </div>
+
+                    <!-- Split Type -->
+                    <div class="input-group" id="splitOptions" style="display:none; text-align:left; margin:20px 0;">
+                        <label style="font-weight:500; margin-bottom:8px; display:block;">Split Mode</label>
+                        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                                <input type="radio" name="splitType" value="single" checked onchange="toggleSplitMode()"> Split every page into a separate file
+                            </label>
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                                <input type="radio" name="splitType" value="range" onchange="toggleSplitMode()"> Split by page range
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Page Range Input -->
+                    <div class="input-group" id="rangeInput" style="display:none; text-align:left; margin:20px 0;">
+                        <label style="font-weight:500; margin-bottom:8px; display:block;">Page Range (e.g. 1-3,5,7-9)</label>
+                        <input type="text" id="pageRange" placeholder="e.g. 1-3,5,7-9" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
+                    </div>
+
+                    <!-- Buttons -->
+                    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:26px 0;">
+                        <button class="upload-btn" id="splitBtn" disabled>Start Splitting</button>
+                        <button class="upload-btn" style="background:#64748b;" onclick="clearFiles()">Clear File</button>
+                    </div>
+
+                    <!-- Loading -->
+                    <div id="loading" style="display:none; justify-content:center; align-items:center; gap:10px; margin:20px 0;">
+                        <div style="width:20px; height:20px; border:2px solid #2563eb; border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite;"></div>
+                        Processing PDF, please wait...
+                    </div>
+
+                    <!-- Result -->
+                    <div id="resultBox" style="display:none; text-align:center; margin:30px 0;">
+                        <div style="font-size:18px; font-weight:600; margin-bottom:12px;">✅ Split Completed</div>
+                        <div id="downloadList"></div>
+                    </div>
+
+                    <div style="text-align:center; font-size:14px; color:#64748b; margin-top:20px;">
+                        All files are processed locally in your browser. No data is uploaded to servers.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+    <script>
+        // Load Public Header & Footer
+        fetch("/header.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("header-placeholder").innerHTML = data);
+
+        fetch("/footer.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("footer-placeholder").innerHTML = data);
+
+        // ========== PDF Split Logic ==========
+        let pdfDoc = null;
+        let file = null;
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const pageCount = document.getElementById('pageCount');
+        const splitOptions = document.getElementById('splitOptions');
+        const rangeInput = document.getElementById('rangeInput');
+        const splitBtn = document.getElementById('splitBtn');
+        const loading = document.getElementById('loading');
+        const resultBox = document.getElementById('resultBox');
+        const downloadList = document.getElementById('downloadList');
+
+        fileInput.onchange = async (e) => {
+            file = e.target.files[0];
+            if (!file) return;
+            fileInfo.style.display = 'block';
+            fileName.innerText = file.name;
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                const totalPages = pdfDoc.getPageCount();
+                pageCount.innerText = `Total pages: ${totalPages}`;
+                splitOptions.style.display = 'block';
+                splitBtn.disabled = false;
+            } catch (err) {
+                alert('Failed to load file: ' + err.message);
+                clearFiles();
+            }
+        };
+
+        function toggleSplitMode() {
+            const type = document.querySelector('input[name="splitType"]:checked').value;
+            rangeInput.style.display = type === 'range' ? 'block' : 'none';
+        }
+
+        function parsePageRange(rangeStr, totalPages) {
+            const pages = new Set();
+            const parts = rangeStr.split(',');
+            for (const part of parts) {
+                if (part.includes('-')) {
+                    const [start, end] = part.split('-').map(Number);
+                    if (!isNaN(start) && !isNaN(end) && start <= end && start >= 1 && end <= totalPages) {
+                        for (let i = start; i <= end; i++) pages.add(i - 1);
+                    }
+                } else {
+                    const page = parseInt(part);
+                    if (!isNaN(page) && page >= 1 && page <= totalPages) pages.add(page - 1);
+                }
+            }
+            return Array.from(pages).sort((a, b) => a - b);
+        }
+
+        splitBtn.onclick = async () => {
+            if (!pdfDoc) return;
+            splitBtn.disabled = true;
+            loading.style.display = 'flex';
+            resultBox.style.display = 'none';
+
+            try {
+                const totalPages = pdfDoc.getPageCount();
+                const splitType = document.querySelector('input[name="splitType"]:checked').value;
+                const zip = new JSZip();
+                const fileBaseName = file.name.replace(/\.pdf$/i, '');
+
+                if (splitType === 'single') {
+                    for (let i = 0; i < totalPages; i++) {
+                        const newDoc = await PDFLib.PDFDocument.create();
+                        const [page] = await newDoc.copyPages(pdfDoc, [i]);
+                        newDoc.addPage(page);
+                        const pdfBytes = await newDoc.save();
+                        zip.file(`${fileBaseName}_page${i + 1}.pdf`, pdfBytes);
+                    }
+                } else {
+                    const rangeStr = document.getElementById('pageRange').value.trim();
+                    if (!rangeStr) {
+                        alert('Please enter a valid page range');
+                        splitBtn.disabled = false;
+                        loading.style.display = 'none';
+                        return;
+                    }
+                    const pageIndices = parsePageRange(rangeStr, totalPages);
+                    if (pageIndices.length === 0) {
+                        alert('Invalid page range');
+                        splitBtn.disabled = false;
+                        loading.style.display = 'none';
+                        return;
+                    }
+                    const newDoc = await PDFLib.PDFDocument.create();
+                    const pages = await newDoc.copyPages(pdfDoc, pageIndices);
+                    pages.forEach(p => newDoc.addPage(p));
+                    const pdfBytes = await newDoc.save();
+                    zip.file(`${fileBaseName}_split.pdf`, pdfBytes);
+                }
+
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(zipBlob);
+                downloadList.innerHTML = `
+                    <a href="${url}" download="${fileBaseName}_split_result.zip" class="upload-btn" style="background:#0ea5e9; text-decoration:none;">
+                        Download Split Result (ZIP)
+                    </a>
+                `;
+                resultBox.style.display = 'block';
+            } catch (err) {
+                alert('Split failed: ' + err.message);
+            } finally {
+                loading.style.display = 'none';
+                splitBtn.disabled = false;
+            }
+        };
+
+        function clearFiles() {
+            fileInput.value = '';
+            pdfDoc = null;
+            file = null;
+            fileInfo.style.display = 'none';
+            splitOptions.style.display = 'none';
+            rangeInput.style.display = 'none';
+            document.getElementById('pageRange').value = '';
+            splitBtn.disabled = true;
+            resultBox.style.display = 'none';
+        }
+    </script>
+
+    <style>
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .tool-group-panel { margin: 50px 0 20px; }
+        .panel-title { font-size: 22px; font-weight: 600; margin-bottom: 20px; text-align: center; }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        .tool-card { padding: 14px 12px; background: #f1f5f9; border-radius: 10px; text-align: center; font-weight: 500; text-decoration: none; color: #222; transition: 0.2s; }
+        .tool-card:hover { background: #2563eb; color: #fff; }
+    </style>
+</body>
+</html>
+
