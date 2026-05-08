@@ -1,22 +1,21 @@
-<!-- 1. 在 <head> 里加：声明页面默认语言、禁止谷歌自动阻断 -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- 关键：页面源语言是英文，不要加 notranslate -->
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>PDF Tools</title>
-  <link rel="stylesheet" href="/style.css">
-  <!-- 不要加：<meta name="google" content="notranslate"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Tools</title>
+    <!-- 引入独立的CSS样式文件 -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="navbar">
     <div class="container">
-        <div class="logo">
+        <a class="logo" href="index.html">
             <img src="/i/adobe-pdf-icon.svg" alt="Logo">
-            <span>PDF</span>
-        </div>
+            <span>PDF Tools</span>
+        </a>
 
         <nav class="nav-menu">
             <a href="index.html">Home</a>
@@ -41,28 +40,42 @@
             <a href="help.html">Help</a>
             <a href="about.html">About</a>
 
-            <!-- 多语言翻译下拉 适配你蓝色导航样式 -->
-            <div id="gtranslate_wrapper" style="margin-left:16px;display:flex;align-items:center;height:100%;"></div>
-
+            <!-- 多语言切换 -->
+            <select id="langSwitch" class="lang-select">
+                <option value="en">English</option>
+                <option value="zh-CN">简体中文</option>
+                <option value="zh-TW">繁體中文</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="ru">Русский</option>
+                <option value="pt">Português</option>
+            </select>
         </nav>
     </div>
 </header>
 
-<!-- 2. 翻译脚本放 </body> 前，用国内可访问的 CDN+错误降级 -->
-<!-- 百度国内稳定多语言翻译 全页面实时生效 -->
-<script src="https://api.fanyi.baidu.com/api/trans/web.js"></script>
+<!-- 多语言核心脚本 -->
 <script>
-window.BaiduTranslateConfig = {
-    defaultLang: 'en',
-    langs: ['zh', 'en', 'ja', 'ko', 'de', 'fr'],
-    container: 'gtranslate_wrapper',
-    style: {
-        borderRadius: '6px',
-        border: '1px solid #ddd',
-        padding: '4px 8px'
+    // 切换语言
+    document.getElementById('langSwitch').addEventListener('change', function () {
+        const lang = this.value;
+        document.cookie = `googtrans=/en/${lang}; path=/; max-age=31536000`;
+        location.reload();
+    });
+
+    // 加载翻译
+    function loadGoogleTranslate() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'zh-CN,zh-TW,en,es,fr,de,ja,ko,ru,pt',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'gtranslate_wrapper');
     }
-}
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
 
 </body>
 </html>
