@@ -355,5 +355,88 @@ body {
 }
 
 
+.upload-area {
+    cursor: pointer;
+    padding: 40px 20px;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    text-align: center;
+    margin: 20px 0;
+    transition: all 0.3s;
+}
+.upload-area:hover {
+    border-color: #409eff;
+    background: #f5fafe;
+}
+.upload-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+.upload-tip {
+    margin-top: 8px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.input-group {
+    display: none;
+    margin: 16px 0;
+}
+.unit-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.tool-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.compress-loading {
+    display: none;
+    text-align: center;
+    margin: 20px 0;
+}
+.compress-spin {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #409eff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.result-group {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+}
+.result-title {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+#sizeInfo {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.tip-text {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
 
 
