@@ -28,20 +28,20 @@
             <a href="help.html">Help</a>
             <a href="about.html">About</a>
 
-            <!-- 多语言切换按钮 -->
-            <div id="google_translate_element" style="margin-left:15px;"></div>
+            <!-- 多语言切换器 -->
+            <div id="gtranslate_wrapper" style="margin-left:16px;"></div>
         </nav>
     </div>
 </header>
 
-<!-- 免费多语言翻译（稳定不报错） -->
-<script type="text/javascript">
-function googleTranslateElementInit() {
+<!-- GitHub Pages 专用 免费多语言 -->
+<script>
+function loadGoogleTranslate() {
   new google.translate.TranslateElement({
     pageLanguage: 'en',
     includedLanguages: 'zh-CN,zh-TW,en,es,fr,de,ja,ko,ru,pt',
     layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
+  }, 'gtranslate_wrapper');
 }
 </script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
