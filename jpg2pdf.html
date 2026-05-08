@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JPG转PDF - 免费在线多张JPG图片合成PDF工具</title>
-    <meta name="description" content="免费在线JPG转PDF工具，支持多张JPG图片一键合成PDF，纯浏览器本地处理，文件不上传更安全。">
-    <meta name="keywords" content="JPG转PDF,JPG图片转PDF,多张JPG合成PDF">
+    <title>JPG to PDF - Free Online Multiple JPG Images to PDF Converter</title>
+    <meta name="description" content="Free online JPG to PDF converter. Combine multiple JPG images into one PDF file instantly. All processing runs locally in your browser, safe and private.">
+    <meta name="keywords" content="JPG to PDF, convert JPG to PDF, merge multiple JPG into PDF">
     <link rel="canonical" href="https://www.tool-pdf.top/jpg2pdf.html">
     <link rel="stylesheet" href="/css/style.css">
 
-    <!-- AdSense 完整保留 -->
+    <!-- AdSense Keep Original -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -17,10 +18,10 @@
 
 <body>
 
-    <!-- 公共页头 -->
+    <!-- Header -->
     <div id="header-placeholder"></div>
 
-    <!-- 顶部广告 完整保留原代码与行内样式 -->
+    <!-- Top Ad -->
     <div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
         <ins class="adsbygoogle"
              style="display:block"
@@ -33,12 +34,12 @@
 
     <main class="container">
         <section class="tool-section">
-            <h1>JPG转PDF - 免费批量合成PDF工具</h1>
+            <h1>JPG to PDF - Free Batch PDF Converter</h1>
 
             <div class="upload-box">
-                <label class="upload-btn" for="jpgFile">选择JPG图片文件</label>
+                <label class="upload-btn" for="jpgFile">Select JPG Images</label>
                 <input type="file" id="jpgFile" accept="image/jpeg,image/jpg" multiple hidden>
-                <p>支持批量多张JPG图片，自动分页合成PDF</p>
+                <p>Batch select multiple JPG images and merge into one PDF automatically</p>
             </div>
 
             <div class="preview-box" id="jpgPreview"></div>
@@ -46,7 +47,7 @@
             <div class="result-box"></div>
         </section>
 
-        <!-- 中间广告 完整保留原代码与行内样式 -->
+        <!-- Middle Ad -->
         <div class="ad-container middle-ad" style="text-align:center; margin:30px 0;">
             <ins class="adsbygoogle"
                  style="display:block"
@@ -58,29 +59,29 @@
         </div>
 
         <section class="intro-section">
-            <h2>工具介绍</h2>
-            <p>本JPG转PDF工具完全在浏览器本地运行，图片文件不会上传到服务器，严格保护您的隐私安全。</p>
-            <p>支持多张JPG图片一键合成PDF，操作简单，无需安装任何软件。</p>
+            <h2>About This Tool</h2>
+            <p>This JPG to PDF converter runs entirely in your browser. All files are processed locally without uploading to any server, keeping your images private and secure.</p>
+            <p>You can select multiple JPG photos, merge them into a single PDF instantly, no software installation required.</p>
         </section>
 
         <section class="faq-section">
-            <h2>常见问题</h2>
+            <h2>FAQ</h2>
             <div class="faq-item">
-                <h3>图片会泄露吗？</h3>
-                <p>安全，所有转换都在本地浏览器完成，不上传、不存档。</p>
+                <h3>Are my images safe?</h3>
+                <p>Yes. All conversions are processed locally in your browser. No files are uploaded or stored online.</p>
             </div>
             <div class="faq-item">
-                <h3>支持多张图片合并吗？</h3>
-                <p>支持，可一次性选择多张JPG图片合成一个PDF文件。</p>
+                <h3>Can I merge multiple images?</h3>
+                <p>Absolutely. You can select multiple JPG files at once and combine them into one PDF document.</p>
             </div>
         </section>
     </main>
 
-    <!-- 公共页脚 -->
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <script>
-        // 自动加载公共页头、页脚
+        // Load header and footer
         fetch("/header.html")
             .then(res => res.text())
             .then(data => document.getElementById("header-placeholder").innerHTML = data);
@@ -89,7 +90,7 @@
             .then(res => res.text())
             .then(data => document.getElementById("footer-placeholder").innerHTML = data);
 
-        // 原有功能逻辑 完全不变
+        // JPG to PDF function
         const { jsPDF } = window.jspdf;
         let selectedFiles = [];
 
@@ -107,17 +108,17 @@
             });
 
             document.querySelector('.action-box').innerHTML = `
-            <button class="upload-btn" onclick="exportToPdf()">立即合成并下载PDF</button>
+            <button class="upload-btn" onclick="exportToPdf()">Generate & Download PDF</button>
             `;
         });
 
         function exportToPdf(){
             if(selectedFiles.length === 0){
-                document.querySelector('.result-box').innerHTML = '<p style="color:red">请先选择图片</p>';
+                document.querySelector('.result-box').innerHTML = '<p style="color:red">Please select JPG images first</p>';
                 return;
             }
 
-            document.querySelector('.result-box').innerHTML = '<p style="color:#2563eb">正在生成PDF，请稍候...</p>';
+            document.querySelector('.result-box').innerHTML = '<p style="color:#2563eb">Generating PDF, please wait...</p>';
 
             let pdf = new jsPDF({
                 orientation: 'p',
@@ -144,8 +145,8 @@
                     let y = (a4H - h) / 2;
                     pdf.addImage(img, 'JPEG', x, y, w, h);
                 });
-                pdf.save('JPG转PDF.pdf');
-                document.querySelector('.result-box').innerHTML = '<p style="color:green">PDF已生成，自动开始下载！</p>';
+                pdf.save('JPG-to-PDF.pdf');
+                document.querySelector('.result-box').innerHTML = '<p style="color:green">PDF generated successfully. Download started automatically!</p>';
             });
         }
     </script>
