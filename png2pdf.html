@@ -1,130 +1,129 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNG转PDF - 免费在线透明图片转PDF工具</title>
-    <meta name="description" content="免费PNG转PDF在线工具，支持透明PNG批量合成PDF，纯本地浏览器处理，安全无水印。">
-    <meta name="keywords" content="PNG转PDF,透明图片转PDF,多张PNG合成PDF">
+    <title>PNG to PDF - Convert Transparent PNG Images to PDF Online</title>
+    <meta name="description" content="Free online PNG to PDF converter. Supports transparent PNG images, batch conversion to A4 PDF. All processes run locally in your browser, safe and secure.">
+    <meta name="keywords" content="PNG to PDF, Transparent PNG to PDF, Convert PNG to PDF, Free PNG to PDF Online">
     <link rel="canonical" href="https://www.tool-pdf.top/png2pdf.html">
     <link rel="stylesheet" href="/css/style.css">
+
+    <!-- AdSense 完整保留 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2923288635448337" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-    <style>
-        .container {width: 1200px; margin: 0 auto;}
-        @media (max-width: 1200px) {.container {width: 95%;}}
-        .upload-box{border:2px dashed #ccc; padding:40px; text-align:center; border-radius:8px; margin:20px 0;}
-        .upload-btn{background:#2563eb; color:#fff; padding:10px 20px; border-radius:6px; cursor:pointer; display:inline-block;}
-        .preview-box{display:grid; grid-template-columns:repeat(auto-fill,120px); gap:10px; margin:20px 0;}
-        .preview-img{width:100px; height:auto; border:1px solid #eee;}
-    </style>
 </head>
+
 <body>
 
-<header class="navbar">
-    <div class="container">
-        <div class="logo">
-            <img src="https://via.placeholder.com/40" alt="PDF">
-            <span>PNG转PDF</span>
-        </div>
-        <nav class="nav-menu">
-            <a href="index.html">首页</a>
-            <a href="jpg2pdf.html">JPG转PDF</a>
-            <a href="png2pdf.html" class="active">PNG转PDF</a>
-            <a href="help.html">帮助</a>
-            <a href="about.html">关于我们</a>
-        </nav>
-    </div>
-</header>
+    <!-- 公共头部 -->
+    <div id="header-placeholder"></div>
 
-<div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2923288635448337"
-         data-ad-slot="1000000001"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<main class="container">
-    <h1>PNG转PDF - 透明图片批量转PDF</h1>
-    <p>支持透明背景PNG图片，批量转换生成标准A4 PDF，本地处理更安全。</p>
-
-    <div class="upload-box">
-        <label class="upload-btn" for="pngFile">选择PNG图片</label>
-        <input type="file" id="pngFile" accept="image/png" multiple hidden>
-        <p>支持批量多选，自动分页合成PDF</p>
-    </div>
-
-    <div class="preview-box" id="pngPreview"></div>
-    <div class="action-box"></div>
-    <div class="result-box"></div>
-
-    <div class="ad-container middle-ad" style="text-align:center; margin:30px 0;">
+    <!-- 顶部广告 -->
+    <div class="ad-container top-ad" style="text-align:center; margin:20px 0;">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-2923288635448337"
-             data-ad-slot="1000000002"
-             data-ad-format="fluid"
-             data-ad-layout="in-article"></ins>
+             data-ad-slot="1000000001"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
-</main>
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-links">
-            <a href="index.html">首页</a>
-            <a href="jpg2pdf.html">JPG转PDF</a>
-            <a href="png2pdf.html">PNG转PDF</a>
-            <a href="/sitemap.xml">网站地图</a>
+    <main class="container">
+        <section class="tool-section">
+            <h1>PNG to PDF - Convert Transparent Images to PDF</h1>
+            <p>Supports transparent background PNG images, batch convert to standard A4 PDF, local processing for better security.</p>
+
+            <div class="tool-panels">
+                <div class="panel active">
+                    <div class="upload-box">
+                        <label class="upload-btn" for="pngFile">Choose PNG Images</label>
+                        <input type="file" id="pngFile" accept="image/png" multiple hidden>
+                        <p>Support multiple selection, auto pagination into PDF</p>
+                    </div>
+
+                    <div class="preview-box" id="pngPreview"></div>
+                    <div class="action-box"></div>
+                    <div class="result-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 中间广告 -->
+        <div class="ad-container middle-ad" style="text-align:center; margin:30px 0;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2923288635448337"
+                 data-ad-slot="1000000002"
+                 data-ad-format="fluid"
+                 data-ad-layout="in-article"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-        <div class="copyright">© 2025 PNG转PDF工具 版权所有</div>
-    </div>
-</footer>
+    </main>
 
-<script>
-const { jsPDF } = window.jspdf;
-let selectedFiles = [];
-document.getElementById('pngFile').addEventListener('change',function(e){
-    selectedFiles = Array.from(e.target.files);
-    const box = document.getElementById('pngPreview');
-    box.innerHTML = '';
-    selectedFiles.forEach((file,i)=>{
-        let url = URL.createObjectURL(file);
-        let div = document.createElement('div');
-        div.innerHTML = `<img src="${url}" class="preview-img"><div>第${i+1}页</div>`;
-        box.appendChild(div);
-    });
-    document.querySelector('.action-box').innerHTML = `<button class="upload-btn" onclick="exportPDF()">生成PDF</button>`;
-});
+    <!-- 公共底部 -->
+    <div id="footer-placeholder"></div>
 
-function exportPDF(){
-    if(selectedFiles.length===0){alert('请选择图片');return;}
-    let pdf = new jsPDF('p','mm','a4');
-    let count = 0;
-    selectedFiles.forEach((file,idx)=>{
-        let img = new Image();
-        img.src = URL.createObjectURL(file);
-        img.onload = function(){
-            if(idx>0) pdf.addPage();
-            let w=210,h=297;
-            let r = Math.min(w/img.width,h/img.height);
-            let x=(w-img.width*r)/2;
-            let y=(h-img.height*r)/2;
-            pdf.addImage(img,'PNG',x,y,img.width*r,img.height*r);
-            count++;
-            if(count===selectedFiles.length){
-                pdf.save('PNG转PDF.pdf');
-                document.querySelector('.result-box').innerHTML='<p style="color:green">PDF已生成并开始下载</p>';
+    <script>
+        // 加载公共头尾
+        fetch("/header.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("header-placeholder").innerHTML = data);
+
+        fetch("/footer.html")
+            .then(res => res.text())
+            .then(data => document.getElementById("footer-placeholder").innerHTML = data);
+
+        // PNG to PDF 功能
+        const { jsPDF } = window.jspdf;
+        let selectedFiles = [];
+
+        document.getElementById('pngFile').addEventListener('change', function (e) {
+            selectedFiles = Array.from(e.target.files);
+            const box = document.getElementById('pngPreview');
+            box.innerHTML = '';
+
+            selectedFiles.forEach((file, i) => {
+                let url = URL.createObjectURL(file);
+                let div = document.createElement('div');
+                div.innerHTML = `<img src="${url}" class="preview-img"><div>Page ${i+1}</div>`;
+                box.appendChild(div);
+            });
+
+            document.querySelector('.action-box').innerHTML = `<button class="upload-btn" onclick="exportPDF()">Generate PDF</button>`;
+        });
+
+        function exportPDF() {
+            if (selectedFiles.length === 0) {
+                alert('Please select images first');
+                return;
             }
+
+            let pdf = new jsPDF('p', 'mm', 'a4');
+            let count = 0;
+
+            selectedFiles.forEach((file, idx) => {
+                let img = new Image();
+                img.src = URL.createObjectURL(file);
+                img.onload = function () {
+                    if (idx > 0) pdf.addPage();
+                    let w = 210, h = 297;
+                    let r = Math.min(w / img.width, h / img.height);
+                    let x = (w - img.width * r) / 2;
+                    let y = (h - img.height * r) / 2;
+                    pdf.addImage(img, 'PNG', x, y, img.width * r, img.height * r);
+                    count++;
+
+                    if (count === selectedFiles.length) {
+                        pdf.save('PNG-to-PDF.pdf');
+                        document.querySelector('.result-box').innerHTML = '<p style="color:green">PDF generated and download started</p>';
+                    }
+                }
+            });
         }
-    });
-}
-</script>
+    </script>
 
 </body>
 </html>
-
-
