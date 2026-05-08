@@ -41,32 +41,28 @@
             <a href="help.html">Help</a>
             <a href="about.html">About</a>
 
-            <!-- 多语言容器 -->
-            <div id="gtranslate_wrapper" style="margin-left:16px;"></div>
+            <!-- 多语言翻译下拉 适配你蓝色导航样式 -->
+            <div id="gtranslate_wrapper" style="margin-left:16px;display:flex;align-items:center;height:100%;"></div>
+
         </nav>
     </div>
 </header>
 
 <!-- 2. 翻译脚本放 </body> 前，用国内可访问的 CDN+错误降级 -->
+<!-- 百度国内稳定多语言翻译 全页面实时生效 -->
+<script src="https://api.fanyi.baidu.com/api/trans/web.js"></script>
 <script>
-function loadGoogleTranslate() {
-  try {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'zh-CN,zh-TW,en,es,fr,de,ja,ko,ru,pt',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'gtranslate_wrapper');
-  } catch (e) {
-    // 国内加载失败时提示
-    document.getElementById('gtranslate_wrapper').innerHTML = 
-      '<span style="color:red;font-size:12px;">翻译加载失败（国内网络限制）</span>';
-  }
+window.BaiduTranslateConfig = {
+    defaultLang: 'en',
+    langs: ['zh', 'en', 'ja', 'ko', 'de', 'fr'],
+    container: 'gtranslate_wrapper',
+    style: {
+        borderRadius: '6px',
+        border: '1px solid #ddd',
+        padding: '4px 8px'
+    }
 }
 </script>
-<!-- 优先用备用 CDN -->
-<script src="https://cdn.jsdelivr.net/npm/google-translate-element@1.0.0/translate_a/element.js?cb=loadGoogleTranslate"></script>
-<!-- 备用：原生地址（国内大概率403） -->
-<script src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate" onerror="document.getElementById('gtranslate_wrapper').innerHTML='<span style=color:red;font-size:12px>翻译服务不可用</span>'"></script>
 
 </body>
 </html>
