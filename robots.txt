@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.tool-pdf.top/sitemap.xml
+# 禁止抓取无用后台、隐藏目录
+Disallow: /css/
+Disallow: /js/
+Disallow: /i/
 
+# 站点地图
+Sitemap: https://tool-pdf.top/sitemap.xml
