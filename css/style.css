@@ -524,3 +524,15 @@ body {
     background: #fff !important;
 }
 /* 关键：不要加 .notranslate 相关全局规则 */
+/* 百度翻译导航栏适配 */
+#gtranslate_wrapper select {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    cursor: pointer;
+}
+/* 隐藏翻译悬浮广告 */
+.baidu-translate-float {display: none !important;}
