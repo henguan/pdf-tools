@@ -2,45 +2,46 @@
     <div class="container">
         <div class="logo">
             <img src="https://via.placeholder.com/40" alt="Logo">
-            <span>Log PDF</span>
+            <span>PDF</span>
         </div>
+
         <nav class="nav-menu">
             <a href="index.html">Home</a>
+
             <div class="dropdown">
                 <span>Tools ▾</span>
                 <div class="dropdown-menu">
                     <a href="compress.html">COMPRESS</a>
-                    <a href="jpg2pdf.html" class="active">JPG to PDF</a>
+                    <a href="jpg2pdf.html">JPG to PDF</a>
                     <a href="png2pdf.html">PNG to PDF</a>
                     <a href="split.html">SPLIT</a>
                     <a href="merge.html">MERGE</a>
                     <a href="unlock.html">UNLOCK</a>
                     <a href="encrypt.html">ENCRYPT</a>
-                    <a href="addpagenumber.html">ADDPAGENUMBER</a>
-                    <a href="addwatermark.html">ADDWATERMARK</a>
+                    <a href="addpagenumber.html">ADD PAGE NUMBER</a>
+                    <a href="addwatermark.html">ADD WATERMARK</a>
                     <a href="crop.html">CROP</a>
                     <a href="rotate.html">ROTATE</a>
                 </div>
             </div>
+
             <a href="help.html">Help</a>
             <a href="about.html">About</a>
 
-            <!-- 语言切换器容器，必须在 nav-menu 内部 -->
-            <div id="gtranslate" style="display: inline-block; margin-left: 16px;"></div>
+            <!-- 多语言切换按钮 -->
+            <div id="google_translate_element" style="margin-left:15px;"></div>
         </nav>
     </div>
 </header>
 
-<!-- GTranslate JS 放在 body 底部，确保页面加载完成再初始化 -->
-<script src="https://cdn.gtranslate.net/widgets/latest/gt.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    new GTranslate({
-        sourceLanguage: "en",
-        targetLanguages: ["zh-CN","zh-TW","es","fr","de","ja","ko","ru","pt","it"],
-        container: "#gtranslate",
-        flag: true,
-        dropdown: true
-    });
-});
+<!-- 免费多语言翻译（稳定不报错） -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'zh-CN,zh-TW,en,es,fr,de,ja,ko,ru,pt',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
 </script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
