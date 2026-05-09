@@ -48,6 +48,8 @@ body {
     font-size: 22px;
     font-weight: bold;
     color: #2563eb;
+    text-decoration: none !important;
+    border-bottom: none !important;
 }
 .logo img {
     width: 40px;
@@ -491,7 +493,14 @@ a.item:hover {
   fill: #2563eb;
   flex-shrink: 0;
 }
-
+/* 去掉所有 a 标签默认下划线 */
+a {
+  text-decoration: none;
+}
+/* 鼠标 hover 时也不要下划线 */
+a:hover {
+  text-decoration: none;
+}
 /* 移动端适配 */
 @media (max-width: 768px) {
     .container { padding: 0 12px; }
