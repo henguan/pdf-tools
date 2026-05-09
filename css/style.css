@@ -11,6 +11,9 @@ body {
     color: #333;
     background: #f8fafc;
     top: 0 !important;
+    min-height: 100vh; /* 让页面至少占满屏幕高度 */
+    display: flex;
+    flex-direction: column;
 }
 
 /* 导航栏：通栏背景，内容1200px */
@@ -39,6 +42,7 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 0 15px;
+    flex: 1; /* 关键：自动撑开，把页脚挤到底部 */
 }
 
 .logo {
